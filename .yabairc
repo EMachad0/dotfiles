@@ -1,0 +1,74 @@
+# Yabai Stuff
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+# pass events to sketchybar
+yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+yabai -m signal --add event=window_title_changed action="sketchybar --trigger title_change"
+
+# Binary System Partition
+yabai -m config layout bsp
+
+# Border
+yabai -m config window_border              on
+yabai -m config window_border_width        3
+yabai -m config window_border_blur         off
+yabai -m config window_shadow              float
+yabai -m config active_window_border_color 0xffe1e3e4
+yabai -m config normal_window_border_color 0xff555555
+yabai -m config normal_window_border_color 0xff2a2f38
+
+# Opacity
+yabai -m config window_opacity             off
+yabai -m config active_window_opacity      1.0
+yabai -m config normal_window_opacity      0.2
+yabai -m config window_opacity_duration    0.0
+
+# How it looks
+yabai -m config top_padding 10
+yabai -m config bottom_padding 10
+yabai -m config left_padding 10
+yabai -m config right_padding 10
+yabai -m config window_gap 8
+
+# Give Space for External Bar
+yabai -m config external_bar all:30:0
+
+# Rules
+
+# Command for getting current windowns
+# yabai -m query --windows | less
+
+# float system preferences. Most of these just diable Yabai form resizing them.
+yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^System Settings$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on layer=above manage=off
+yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
+yabai -m rule --add label="Calendar" app="^Calendar$" manage=off
+yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
+yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+yabai -m rule --add label="App Store" app="^App Store$" manage=off
+yabai -m rule --add label="1Password" app="^1Password$" manage=off
+yabai -m rule --add app="^Alfred Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
+yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Spotify$" manage=off
+yabai -m rule --add app="^Arc$" title="Picture in Picture" sticky=on layer=above manage=off border=off
+yabai -m rule --add app="^Arc$" title!="." manage=off border=off
+
+# float all of JetBrains ides except Main Window
+yabai -m rule --add app="^JetBrains Toolbox$" sticky=on layer=above manage=off
+JetBrainsApp='(IntelliJ IDEA|WebStorm|GoLand|CLion|RubyMine|PyCharm|Rider|DataGrip|DataSpell)'
+yabai -m rule --add app="^${JetBrainsApp}" manage=off
+yabai -m rule --add app="^${JetBrainsApp}" title=" – " manage=on
+yabai -m signal --add app="^${JetBrainsApp}" event=window_title_changed \
+  action='yabai -m rule --add label="jetbrains_rule" app="^${JetBrainsApp}" title=" – " manage=on'
+
+# feedback
+echo "yabai configuration loaded.."
+
