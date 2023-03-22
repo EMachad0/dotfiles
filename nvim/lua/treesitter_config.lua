@@ -7,7 +7,7 @@ require'nvim-treesitter.configs'.setup {
     -- parser_install_dir = "/some/path/to/store/parsers",
 
     -- A list of parser names, or "all"
-    ensure_installed = { "bash", "lua", "c", "cpp", "python", "rust" },
+    ensure_installed = { "bash", "lua", "c", "cpp", "python", "rust", "kdl" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,

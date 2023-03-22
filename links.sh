@@ -40,3 +40,12 @@ mkdir -vp ~/.config/karabiner
 ln -vi karabiner/karabiner.json ~/.config/karabiner
 ln -vsi $PWD/karabiner/assets ~/.config/karabiner
 
+# alacritty
+mkdir -vp ~/.config/alacritty
+ln -vi alacritty/alacritty.yml ~/.config/alacritty
+
+# zellij
+mkdir -vp ~/.config/zellij
+ln -vi zellij/config.kdl ~/.config/zellij
+ln -vsi zellij/themes ~/.config/zellij
+
