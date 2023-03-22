@@ -1,7 +1,5 @@
 # Dotfiles
 
-# Dotfiles
-
 This repository contains my personal dotfiles. They are configuration files that are used to customize your system.
 
 ## Installation
