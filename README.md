@@ -28,4 +28,4 @@ To install these dotfiles, you can run the installation script `links.sh`. This 
 
 ## Theme
 
-I use the [catpuccin](https://github.com/catppuccin) theme whenever, some apps include customizations to make it fit my own style!
+I use the [catpuccin](https://github.com/catppuccin) theme whenever possible, some apps include customizations to make it fit my own style!
