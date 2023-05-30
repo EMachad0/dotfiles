@@ -123,10 +123,6 @@ hyper - r : \
     sketchybar --update; \
     skhd --reload
 
-# open terminal, blazingly fast compared to iTerm/Hyper
-# cmd + shift - return : open /Applications/iTerm.app;
-hyper - return : open /Applications/iTerm.app;
-
 # enter fullscreen mode for the focused container
 hyper - f : yabai -m window --toggle zoom-fullscreen
 
@@ -216,36 +212,41 @@ resize < up: yabai -m window --resize top:-50:0; \
 resize < right: yabai -m window --resize right:50:0; \
                 yabai -m window --resize left:50:0;
 
-### hyper
-# color
-:: hypermode @ : yabai -m config active_window_border_color 0xff00ffff
-# toggle mode
-default < hyper - a ; hypermode
-hypermode < hyper - a ; default
-hypermode < escape ; default
-# commands
-hypermode < tab : yabai -m space --focus next || yabai -m space --focus first
-hypermode < shift - tab : yabai -m space --focus prev || yabai -m space --focus last
-hypermode < 1 : yabai -m space --focus 1
-hypermode < 2 : yabai -m space --focus 2
-hypermode < 3 : yabai -m space --focus 3
-hypermode < 4 : yabai -m space --focus 4
-hypermode < 5 : yabai -m space --focus 5
-hypermode < 6 : yabai -m space --focus 6
-hypermode < 7 : yabai -m space --focus 7
-hypermode < 8 : yabai -m space --focus 8
-hypermode < 9 : yabai -m space --focus 9
-hypermode < h : yabai -m window --warp west
-hypermode < j : yabai -m window --warp south
-hypermode < k : yabai -m window --warp north
-hypermode < l : yabai -m window --warp east
-hypermode < o : yabai -m space --rotate 270
-hypermode < rshift - o : yabai -m space --rotate 90
-hypermode < e : yabai -m space --balance
-hypermode < n : yabai -m window --focus next || yabai -m window --focus first
-hypermode < rshift - n : yabai -m window --focus prev || yabai -m window --focus last
 
 ####### Unused ####### 
+
+# open terminal, blazingly fast compared to iTerm/Hyper
+# cmd + shift - return : open /Applications/iTerm.app;
+# hyper - return : open /Applications/iTerm.app;
+
+### hyper mode
+# color
+# :: hypermode @ : yabai -m config active_window_border_color 0xff00ffff
+# toggle mode
+# default < hyper - a ; hypermode
+# hypermode < hyper - a ; default
+# hypermode < escape ; default
+# commands
+# hypermode < tab : yabai -m space --focus next || yabai -m space --focus first
+# hypermode < shift - tab : yabai -m space --focus prev || yabai -m space --focus last
+# hypermode < 1 : yabai -m space --focus 1
+# hypermode < 2 : yabai -m space --focus 2
+# hypermode < 3 : yabai -m space --focus 3
+# hypermode < 4 : yabai -m space --focus 4
+# hypermode < 5 : yabai -m space --focus 5
+# hypermode < 6 : yabai -m space --focus 6
+# hypermode < 7 : yabai -m space --focus 7
+# hypermode < 8 : yabai -m space --focus 8
+# hypermode < 9 : yabai -m space --focus 9
+# hypermode < h : yabai -m window --warp west
+# hypermode < j : yabai -m window --warp south
+# hypermode < k : yabai -m window --warp north
+# hypermode < l : yabai -m window --warp east
+# hypermode < o : yabai -m space --rotate 270
+# hypermode < rshift - o : yabai -m space --rotate 90
+# hypermode < e : yabai -m space --balance
+# hypermode < n : yabai -m window --focus next || yabai -m window --focus first
+# hypermode < rshift - n : yabai -m window --focus prev || yabai -m window --focus last
 
 # change layout of desktop
 # alt - e : yabai -m space --layout bsp

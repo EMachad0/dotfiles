@@ -159,4 +159,5 @@ alias cat="bat -pp"
 alias ls="exa --icons"
 alias gcc="gcc-12"
 alias g++="g++-12"
+alias vim="nvim"
 
