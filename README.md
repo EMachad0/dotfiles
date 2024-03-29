@@ -2,10 +2,6 @@
 
 This repository contains my personal dotfiles. They are configuration files that are used to customize your system.
 
-## Installation
-
-To install these dotfiles, you can run the installation script `links.sh`. This script creates hard links to the `.dotfiles` of this directory. If the file already exists, it prompts the user if they want to replace it.
-
 ## Screnshots
 
 ### Iterm2 + Tmux
@@ -29,3 +25,20 @@ To install these dotfiles, you can run the installation script `links.sh`. This 
 ## Theme
 
 I use the [catpuccin](https://github.com/catppuccin) theme whenever possible, some apps include customizations to make it fit my own style!
+
+## Installation
+
+I use `GNU stow` to create symlinks for the dotfiles. 
+
+To create links to the `.dotfiles` of this directory:
+
+```bash
+stow . -t ~
+```
+
+If the file already exists, an error will be displayed.
+
+To delete all links created:
+```bash
+stow -D . -t ~
+```
