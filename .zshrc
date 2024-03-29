@@ -154,10 +154,29 @@ n ()
     fi
 }
 
+# conda
+export CONDA_AUTO_ACTIVATE_BASE=false # Dont activate an enviroment when starting a new terminal
+export CONDA_CHANGE_PS1=false # Dont show the current enviroment this is done by starship
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/machado/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/machado/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/machado/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/machado/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
 # aliases
 alias cat="bat -pp"
 alias ls="exa --icons"
 alias gcc="gcc-12"
 alias g++="g++-12"
 alias vim="nvim"
+
 

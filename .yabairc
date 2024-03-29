@@ -44,7 +44,8 @@ yabai -m config external_bar all:30:0
 # float system preferences. Most of these just diable Yabai form resizing them.
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
 yabai -m rule --add app="^System Settings$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Finder$" layer=above manage=off
+yabai -m rule --add app="^Marta$" layer=above manage=off
 yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on layer=above manage=off
 yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
@@ -60,10 +61,12 @@ yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Arc$" title="Picture in Picture" sticky=on layer=above manage=off border=off
 yabai -m rule --add app="^Arc$" title!="." manage=off border=off
+yabai -m rule --add app="^Unity$" manage=off border=off layer=above
+yabai -m rule --add app="^Loom$" manage=off border=off layer=above
 
 # float all of JetBrains ides except Main Window
 yabai -m rule --add app="^JetBrains Toolbox$" sticky=on layer=above manage=off
-JetBrainsApp='(IntelliJ IDEA|WebStorm|GoLand|CLion|RubyMine|PyCharm|Rider|DataGrip|DataSpell)'
+JetBrainsApp='(IntelliJ IDEA|WebStorm|GoLand|CLion|RubyMine|PyCharm|JetBrains Rider|DataGrip|DataSpell|RustRover-EAP)'
 yabai -m rule --add app="^${JetBrainsApp}" manage=off
 yabai -m rule --add app="^${JetBrainsApp}" title=" – " manage=on
 yabai -m signal --add app="^${JetBrainsApp}" event=window_title_changed \
