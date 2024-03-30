@@ -24,3 +24,6 @@ _darcs
 alfred
 iterm
 
+# any kackup
+.*.bkp
+

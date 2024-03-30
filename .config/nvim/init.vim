@@ -28,14 +28,15 @@ set showmatch
 filetype plugin indent on
 set autoindent
 
+" leader
+" space as leader
+let mapleader = " "
+
 " Plugins
-lua require('plugins')
+lua require('plugin_manager')
 
 " Vibrant Colors
 set termguicolors
-
-" Remap
-nnoremap <C-f> :NERDTreeToggle<CR>
 
 " unmap f1
 :nmap <F1> <nop>
