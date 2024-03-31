@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+### Updating the icon_map
+# # clone this repo
+# git clone https://github.com/kvndrsslr/sketchybar-app-font.git /tmp/sketchybar-app-font
+# cd /tmp/sketchybar-app-font
+# # install dependencies
+# pnpm install
+# # - build the files
+# # - install the font to: $HOME/Library/Fonts/sketchybar-app-font.ttf
+# # - install the icon map script to: $HOME/.config/sketchybar/icon_map.sh
+# pnpm run build:install 
+
+
 ### START-OF-ICON-MAP
 function __icon_map() {
     case "$1" in
