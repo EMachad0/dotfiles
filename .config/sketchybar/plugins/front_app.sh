@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-TITLE=$(yabai -m query --windows --window | jq -r '.title')
-sketchybar --set $NAME label="$INFO - $TITLE"
+TITLE=$(yabai -m query --windows --window | jq -r '.app')
+sketchybar --set $NAME label="$TITLE"
 

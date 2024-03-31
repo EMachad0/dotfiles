@@ -119,7 +119,8 @@
 
 # restart Yabi, SpaceBar, and SKHD
 hyper - r : \
-    launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
+    # launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
+    yabai --restart-service; \
     sketchybar --update; \
     skhd --reload
 
