@@ -249,6 +249,12 @@ theme "catppuccin-mocha"
 //
 // default_mode "locked"
 
+ui {
+    pane_frames {
+        rounded_corners true
+    }
+}
+
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
 // potentially interfere with copying text.

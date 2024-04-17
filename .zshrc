@@ -175,8 +175,8 @@ unset __conda_setup
 # aliases
 alias cat="bat -pp"
 alias ls="exa --icons"
-alias gcc="gcc-12"
-alias g++="g++-12"
+alias gcc="gcc-13"
+alias g++="g++-13"
 alias vim="nvim"
 
 
