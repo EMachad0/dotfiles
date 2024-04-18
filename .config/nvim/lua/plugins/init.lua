@@ -1,9 +1,9 @@
 return {
     {
-        "okuuva/auto-save.nvim",
+        'okuuva/auto-save.nvim',
         enabled = false,
-        cmd = "ASToggle", -- optional for lazy loading on command
-        event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
+        cmd = 'ASToggle',                         -- optional for lazy loading on command
+        event = { 'InsertLeave', 'TextChanged' }, -- optional for lazy loading on trigger events
         opts = {
             -- your config goes here
             -- or just leave it empty :)

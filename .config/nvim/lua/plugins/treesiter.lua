@@ -1,23 +1,23 @@
 return {
     {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        config = function ()
-            local configs = require("nvim-treesitter.configs")
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        config = function()
+            local configs = require('nvim-treesitter.configs')
 
             configs.setup({
                 -- A list of parser names, or "all"
                 ensure_installed = {
-                    "bash",
-                    "lua",
-                    "vim",
-                    "vimdoc",
-                    "c",
-                    "cpp",
-                    "python",
-                    "rust",
-                    "kdl",
-                    "toml",
+                    'bash',
+                    'lua',
+                    'vim',
+                    'vimdoc',
+                    'c',
+                    'cpp',
+                    'python',
+                    'rust',
+                    'kdl',
+                    'toml',
                 },
 
                 -- List of parsers to ignore installing (for "all")
