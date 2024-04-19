@@ -1,6 +1,6 @@
 return function()
     require 'lspconfig'.clangd.setup {
-        cmd = { 'clangd', '--background-index' },
+        cmd = { 'clangd' },
         init_options = {
             clangdFileStatus = true,
             clangdSemanticHighlighting = true,
