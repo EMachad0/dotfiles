@@ -194,10 +194,13 @@ return {
     },
     {
         'mrcjkb/rustaceanvim',
+        dependencies = {
+            'VonHeikemen/lsp-zero.nvim',
+        },
         version = '^4', -- Recommended
         ft = { 'rust' },
         config = function()
-            local lsp_zero = require('lsp_zero')
+            local lsp_zero = require('lsp-zero')
             return {
                 server = {
                     capabilities = lsp_zero.get_capabilities()
@@ -207,7 +210,7 @@ return {
     },
     {
         'saecki/crates.nvim',
-        dependecies = 'hrsh7th/nvim-cmp',
+        dependencies = 'hrsh7th/nvim-cmp',
         ft = { 'rust', 'toml' },
         config = function(_, opts)
             local crates = require('crates')
