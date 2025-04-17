@@ -175,9 +175,11 @@ unset __conda_setup
 
 # aliases
 alias cat="bat -pp"
-alias ls="exa --icons"
+alias ls="eza --icons"
 alias gcc="gcc-14"
 alias g++="g++-14"
 alias vim="nvim"
 
 
+
+[ -f "/Users/machado/.ghcup/env" ] && . "/Users/machado/.ghcup/env" # ghcup-env
