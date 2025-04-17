@@ -55,6 +55,7 @@ yabai -m rule --add app="^Spotify$" manage=off
 # yabai -m rule --add app="^Arc$" title!="." manage=off
 yabai -m rule --add app="^Unity$" manage=off sub-layer=above
 yabai -m rule --add app="^Loom$" manage=off sub-layer=above
+yabai -m rule --add app="bevy" manage=off sub-layer=above
 
 # float all of JetBrains ides except Main Window
 yabai -m rule --add app="^JetBrains Toolbox$" sub-layer=above manage=off
@@ -65,8 +66,8 @@ ToggleWindow='yabai -m query --windows --window $YABAI_WINDOW_ID | jq -e ".\"is-
 yabai -m signal --add app="^${JetBrainsApp}" title="( – )" event=window_title_changed action="${ToggleWindow}"
 
 # borders
-yabai -m config window_shadow float
-borders active_color=0xffe1e3e4 inactive_color=0xff2a2f38 width=6 &
+# yabai -m config window_shadow float
+# borders active_color=0xffe1e3e4 inactive_color=0xff2a2f38 width=6 &
 
 # feedback
 echo "yabai configuration loaded.."
