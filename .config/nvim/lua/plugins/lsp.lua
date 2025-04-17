@@ -45,6 +45,7 @@ return {
                 -- to learn the available actions
                 lsp_zero.default_keymaps({ buffer = bufnr })
 
+                -- TODO: Does this do anything?
                 vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = bufnr })
             end)
 
@@ -55,6 +56,7 @@ return {
                     'lua_ls',
                     'rust_analyzer',
                     'clangd',
+                    'hls',
                 },
                 handlers = {
                     --- this first function is the "default handler"

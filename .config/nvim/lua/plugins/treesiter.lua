@@ -18,6 +18,7 @@ return {
                     'rust',
                     'kdl',
                     'toml',
+                    'haskell',
                 },
 
                 -- List of parsers to ignore installing (for "all")
