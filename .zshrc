@@ -117,7 +117,7 @@ alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {
 
 # zoxide
 eval "$(zoxide init zsh)"
-alias cd="z"
+[ -x "$(command -v z)" ] && alias cd="z"
 
 # starship
 eval "$(starship init zsh)"
@@ -173,13 +173,16 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# ghcup
+[ -f "/Users/machado/.ghcup/env" ] && . "/Users/machado/.ghcup/env" # ghcup-env
+
+# add local binaries to path
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
 # aliases
-alias cat="bat -pp"
-alias ls="eza --icons"
+[ -x "$(command -v bat)" ] && alias cat="bat -pp"
+[ -x "$(command -v eza)" ] && alias ls="eza --icons"
+[ -x "$(command -v vim)" ] && alias vim="nvim"
 alias gcc="gcc-14"
 alias g++="g++-14"
-alias vim="nvim"
 
-
-
-[ -f "/Users/machado/.ghcup/env" ] && . "/Users/machado/.ghcup/env" # ghcup-env
