@@ -109,7 +109,7 @@ source $ZSH/oh-my-zsh.sh
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # fuzzy finder
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -x "$(command -v fzf)" ] && source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND='fd --type file --strip-cwd-prefix --follow --hidden --exclude .git --color=always'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--ansi"
