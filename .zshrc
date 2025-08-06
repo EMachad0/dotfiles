@@ -109,7 +109,7 @@ source $ZSH/oh-my-zsh.sh
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # fuzzy finder
-[ -x "$(command -v fzf)" ] && source <(fzf --zsh)
+source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND='fd --type file --strip-cwd-prefix --follow --hidden --exclude .git --color=always'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--ansi"
@@ -117,7 +117,7 @@ alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {
 
 # zoxide
 eval "$(zoxide init zsh)"
-[ -x "$(command -v z)" ] && alias cd="z"
+[ -x "$(command -v zoxide)" ] && alias cd="z" || echo "zoxide not installed"
 
 # starship
 eval "$(starship init zsh)"
@@ -180,9 +180,9 @@ unset __conda_setup
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 # aliases
-[ -x "$(command -v bat)" ] && alias cat="bat -pp"
-[ -x "$(command -v eza)" ] && alias ls="eza --icons"
-[ -x "$(command -v vim)" ] && alias vim="nvim"
+[ -x "$(command -v bat)" ] && alias cat="bat -pp" || echo "bat not installed"
+[ -x "$(command -v eza)" ] && alias ls="eza --icons" || echo "eza not installed"
+[ -x "$(command -v nvim)" ] && alias vim="nvim" || echo "nvim not installed"
 alias gcc="gcc-14"
 alias g++="g++-14"
 
