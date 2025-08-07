@@ -56,6 +56,7 @@ yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Unity$" manage=off sub-layer=above
 yabai -m rule --add app="^Loom$" manage=off sub-layer=above
 yabai -m rule --add app="bevy" manage=off sub-layer=above
+yabai -m rule --add app="yagber" manage=off sub-layer=above
 
 # float all of JetBrains ides except Main Window
 yabai -m rule --add app="^JetBrains Toolbox$" sub-layer=above manage=off
