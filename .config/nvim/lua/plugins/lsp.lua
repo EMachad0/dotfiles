@@ -56,7 +56,6 @@ return {
                     'lua_ls',
                     'rust_analyzer',
                     'clangd',
-                    'hls',
                 },
                 handlers = {
                     --- this first function is the "default handler"
