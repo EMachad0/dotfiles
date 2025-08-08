@@ -109,11 +109,13 @@ source $ZSH/oh-my-zsh.sh
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # fuzzy finder
-source <(fzf --zsh)
+FZF_CTRL_T_COMMAND= source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND='fd --type file --strip-cwd-prefix --follow --hidden --exclude .git --color=always'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--ansi"
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+# bind the file widget to ctrl+F so it is zellij friendly
+bindkey '^F' fzf-file-widget
 
 # zoxide
 eval "$(zoxide init zsh)"
