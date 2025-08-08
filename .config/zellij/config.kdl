@@ -314,3 +314,8 @@ ui {
 // The folder in which Zellij will look for themes
 //
 // theme_dir "/path/to/my/theme_dir"
+
+// Whether to enable mouse hover effects and multiple select functionality (pane grouping).
+//
+advanced_mouse_actions false
+
