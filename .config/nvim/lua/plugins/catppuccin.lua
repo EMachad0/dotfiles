@@ -8,6 +8,12 @@ return {
         config = function()
             -- actually load the colorscheme
             vim.cmd([[colorscheme catppuccin-mocha]])
+
+            -- configuration
+            require('catppuccin').setup({
+                -- auto detect plugins and enabled their respective catpuccin theme
+                auto_integrations = true,
+            })
         end,
     }
 }
