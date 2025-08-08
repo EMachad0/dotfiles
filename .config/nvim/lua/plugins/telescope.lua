@@ -26,9 +26,9 @@ return {
                 local hidden = vim.g.telescope_show_hidden_files == true
                 builtin.live_grep({
                     additional_args = function()
-                        local args = ''
+                        local args = {}
                         if hidden then
-                            args = args .. '--hidden '
+                            table.insert(args, '--hidden')
                         end
                         return args
                     end,
@@ -76,9 +76,9 @@ return {
             builtin.live_grep({
                 cwd = picker.cwd,
                 additional_args = function()
-                    local args = ''
+                    local args = {}
                     if get_hidden_state() then
-                        args = args .. '--hidden '
+                        table.insert(args, '--hidden')
                     end
                     return args
                 end,
