@@ -186,3 +186,6 @@ unset __conda_setup
 alias gcc="gcc-14"
 alias g++="g++-14"
 
+# signal apps that I am using alacrity
+export TERM=alacritty
+
