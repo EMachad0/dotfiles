@@ -26,11 +26,14 @@ return {
                 local hidden = vim.g.telescope_show_hidden_files == true
                 builtin.live_grep({
                     additional_args = function()
+                        local args = ''
                         if hidden then
-                            return { '--hidden' }
+                            args = args .. '--hidden '
                         end
-                        return {}
+                        return args
                     end,
+                    -- Seed with word under cursor
+                    default_text = vim.fn.expand('<cword>'),
                 })
             end,
             desc = 'Find String',
@@ -56,11 +59,10 @@ return {
         local function relaunch_find_files_with_hidden(prompt_bufnr)
             local picker = action_state.get_current_picker(prompt_bufnr)
             local current_text = action_state.get_current_line()
-            local cwd = picker and picker.cwd or vim.loop.cwd()
             actions.close(prompt_bufnr)
             vim.g.telescope_show_hidden_files = not get_hidden_state()
             builtin.find_files({
-                cwd = cwd,
+                cwd = picker.cwd,
                 hidden = get_hidden_state(),
                 default_text = current_text,
             })
@@ -69,17 +71,16 @@ return {
         local function relaunch_live_grep_with_hidden(prompt_bufnr)
             local picker = action_state.get_current_picker(prompt_bufnr)
             local current_text = action_state.get_current_line()
-            local cwd = picker and picker.cwd or vim.loop.cwd()
             actions.close(prompt_bufnr)
             vim.g.telescope_show_hidden_files = not get_hidden_state()
             builtin.live_grep({
-                cwd = cwd,
+                cwd = picker.cwd,
                 additional_args = function()
+                    local args = ''
                     if get_hidden_state() then
-                        return { "--hidden", "--glob", "!.git/" }
-                    else
-                        return {}
+                        args = args .. '--hidden '
                     end
+                    return args
                 end,
                 default_text = current_text,
             })
