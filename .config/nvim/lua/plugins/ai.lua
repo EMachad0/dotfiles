@@ -21,15 +21,43 @@ return {
         },
         event = "InsertEnter",
         config = function()
-            -- initialize copilot-cmp
-            require("copilot_cmp").setup()
-
-            -- safely inject copilot into cmp sources after cmp is loaded
+            -- configure cmp + copilot-cmp when cmp is available
             local has_cmp, cmp = pcall(require, "cmp")
             if has_cmp then
+                -- initialize copilot-cmp
+                require("copilot_cmp").setup()
+
+                -- inject copilot into cmp sources (avoid duplicates)
                 local sources = cmp.get_config().sources or {}
-                table.insert(sources, 1, { name = "copilot" })
-                cmp.setup({ sources = sources })
+                local has_copilot = false
+                for _, src in ipairs(sources) do
+                    if src.name == "copilot" then has_copilot = true break end
+                end
+                if not has_copilot then
+                    table.insert(sources, 1, { name = "copilot", group_index = 2 })
+                end
+
+                -- Sorting comparators recommended by copilot-cmp
+                local sorting = cmp.get_config().sorting or {}
+                sorting.priority_weight = 2
+                sorting.comparators = {
+                    require("copilot_cmp.comparators").prioritize,
+                    cmp.config.compare.offset,
+                    -- cmp.config.compare.scopes, -- intentionally disabled per default
+                    cmp.config.compare.exact,
+                    cmp.config.compare.score,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.length,
+                    cmp.config.compare.order,
+                }
+
+                cmp.setup({
+                    sources = sources,
+                    sorting = sorting,
+                })
             end
 
             -- ensure lspkind shows a Copilot icon without touching lsp.lua
