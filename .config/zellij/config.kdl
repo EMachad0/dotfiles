@@ -199,7 +199,6 @@ plugins {
 // Default: $SHELL
 //
 // default_shell "fish"
-
 // Toggle between having pane frames around the panes
 // Options:
 //   - true (default)
@@ -262,7 +261,7 @@ ui {
 //   - true (default)
 //   - false
 //
-mouse_mode false
+// mouse_mode false
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
