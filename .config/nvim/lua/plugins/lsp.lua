@@ -111,6 +111,10 @@ return {
 
             -- LSP Servers config
             require('mason-lspconfig').setup {
+                automatic_enable = {
+                    -- rust_analyzer is enable by rustancean vim
+                    exclude = { 'rust_analyzer' }
+                },
                 -- A list of servers to automatically install if they're not already installed.
                 ensure_installed = {
                     'lua_ls',
@@ -119,7 +123,7 @@ return {
                 },
                 handlers = {
                     --- this first function is the "default handler"
-                    --- it applies to every language server without a "custom handler"
+                    -- - it applies to every language server without a "custom handler"
                     function(server_name)
                         -- try to load a module in 'nvim/lua/config/lsp/server_name.lua'
                         local status, setup_function = pcall(require, 'config.lsp.' .. server_name)
@@ -131,45 +135,8 @@ return {
                             print('Warning: No custom configuration found for ' .. server_name .. '.')
                         end
                     end,
-                    -- rust_analizer config by rustaceanvim
-                    rust_analyzer = lsp_zero.noop,
                 },
             }
-        end
-    },
-
-    -- rust
-    {
-        'rust-lang/rust.vim',
-        ft = 'rust',
-        init = function()
-            vim.g.rustfmt_autosave = 1
-        end
-    },
-    {
-        'mrcjkb/rustaceanvim',
-        dependencies = {
-            'VonHeikemen/lsp-zero.nvim',
-        },
-        version = '^4', -- Recommended
-        ft = { 'rust' },
-        config = function()
-            local lsp_zero = require('lsp-zero')
-            return {
-                server = {
-                    capabilities = lsp_zero.get_capabilities()
-                },
-            }
-        end
-    },
-    {
-        'saecki/crates.nvim',
-        dependencies = 'hrsh7th/nvim-cmp',
-        ft = { 'rust', 'toml' },
-        config = function(_, opts)
-            local crates = require('crates')
-            crates.setup(opts)
-            crates.show()
         end
     },
 }
