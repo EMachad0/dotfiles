@@ -41,20 +41,21 @@ return {
 
             -- this runs only when an LSP is active on the buffer
             lsp_zero.on_attach(function(_, bufnr)
-                -- diagnostic config
+                -- diagnostic config (use vim.diagnostic.config for signs)
+                local severity = vim.diagnostic.severity
                 vim.diagnostic.config({
                     virtual_text = true, -- shows inline messages
                     underline = true,    -- underlines the words
-                    signs = true,        -- shows signs in gutter
+                    signs = {
+                        text = {
+                            [severity.ERROR] = "✘ ",
+                            [severity.WARN]  = "▲ ",
+                            [severity.HINT]  = "⚑ ",
+                            [severity.INFO]  = " ",
+                        },
+                    },
                     update_in_insert = false,
                 })
-
-                -- custom icons
-                local signs = { Error = "✘ ", Warn = "▲ ", Hint = "⚑ ", Info = " " }
-                for type, icon in pairs(signs) do
-                    local hl = "DiagnosticSign" .. type
-                    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-                end
 
                 -- keymaps
                 local keymap_options = { buffer = bufnr, silent = true }
