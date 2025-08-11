@@ -15,32 +15,16 @@ return {
         end
     },
     {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v3.x',
-        lazy = true,
-        config = false,
-        init = function()
-            -- Disable automatic setup, we are doing it manually
-            vim.g.lsp_zero_extend_cmp = 0
-            vim.g.lsp_zero_extend_lspconfig = 0
-        end,
-    },
-    {
         'neovim/nvim-lspconfig',
         cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             { 'hrsh7th/cmp-nvim-lsp' },
-            { 'williamboman/mason-lspconfig.nvim' },
             { 'j-hui/fidget.nvim' },
         },
-        config = function()
-            -- This is where all the LSP shenanigans will live
-            local lsp_zero = require('lsp-zero')
-            lsp_zero.extend_lspconfig()
-
+        opts = {
             -- this runs only when an LSP is active on the buffer
-            lsp_zero.on_attach(function(_, bufnr)
+            on_attach = function(_, bufnr)
                 -- diagnostic config (use vim.diagnostic.config for signs)
                 local severity = vim.diagnostic.severity
                 vim.diagnostic.config({
@@ -48,10 +32,10 @@ return {
                     underline = true,    -- underlines the words
                     signs = {
                         text = {
-                            [severity.ERROR] = "✘ ",
-                            [severity.WARN]  = "▲ ",
-                            [severity.HINT]  = "⚑ ",
-                            [severity.INFO]  = " ",
+                            [severity.ERROR] = '✘ ',
+                            [severity.WARN]  = '▲ ',
+                            [severity.HINT]  = '⚑ ',
+                            [severity.INFO]  = ' ',
                         },
                     },
                     update_in_insert = false,
@@ -61,8 +45,8 @@ return {
                 local keymap_options = { buffer = bufnr, silent = true }
 
                 local function map(mode, lhs, rhs, desc)
-                    local opts = vim.tbl_extend('force', keymap_options, { desc = desc })
-                    vim.keymap.set(mode, lhs, rhs, opts)
+                    local lopts = vim.tbl_extend('force', keymap_options, { desc = desc })
+                    vim.keymap.set(mode, lhs, rhs, lopts)
                 end
 
                 -- LSP core actions
@@ -107,36 +91,51 @@ return {
                 map({ 'n', 'v' }, '<leader>lf', function()
                     vim.lsp.buf.format({ async = true })
                 end, 'LSP: Format')
-            end)
+            end
+        },
+        config = function(_, opts)
+            local base_dir = vim.fn.stdpath('config') .. '/lua/config/lsp'
+            local files = vim.fn.globpath(base_dir, '*.lua', false, true)
 
-            -- LSP Servers config
-            require('mason-lspconfig').setup {
-                automatic_enable = {
-                    -- rust_analyzer is enable by rustancean vim
-                    exclude = { 'rust_analyzer' }
-                },
-                -- A list of servers to automatically install if they're not already installed.
-                ensure_installed = {
-                    'lua_ls',
-                    'rust_analyzer',
-                    'clangd',
-                },
-                handlers = {
-                    --- this first function is the "default handler"
-                    -- - it applies to every language server without a "custom handler"
-                    function(server_name)
-                        -- try to load a module in 'nvim/lua/config/lsp/server_name.lua'
-                        local status, setup_function = pcall(require, 'config.lsp.' .. server_name)
-                        if status then
-                            setup_function() -- Call the function directly if the module is successfully loaded
-                        else
-                            -- If the module does not exist, use a default setup and print a warning message
-                            require('lspconfig')[server_name].setup({})
-                            print('Warning: No custom configuration found for ' .. server_name .. '.')
-                        end
-                    end,
-                },
-            }
+            -- Build capabilities once, enhanced by cmp-nvim-lsp
+            local function make_capabilities()
+                local caps = vim.lsp.protocol.make_client_capabilities()
+                local ok, cmp = pcall(require, 'cmp_nvim_lsp')
+                if ok then caps = cmp.default_capabilities(caps) end
+                return caps
+            end
+
+            -- Base settings injected into every server
+            vim.lsp.config('*', {
+                on_attach = opts.on_attach,
+                capabilities = make_capabilities(),
+            })
+
+            for _, file in ipairs(files) do
+                local name = vim.fn.fnamemodify(file, ':t:r') -- filename without .lua
+                local modname = ('config.lsp.%s'):format(name)
+                local ok, mod = pcall(require, modname)
+                if not ok then
+                    vim.notify('LSP config failed: ' .. modname .. '\n' .. mod, vim.log.levels.ERROR)
+                else
+                    vim.lsp.config(name, mod)
+                    vim.lsp.enable(name)
+                end
+            end
         end
+    },
+    {
+        'mason-org/mason-lspconfig.nvim',
+        dependencies = {
+            'mason-org/mason.nvim',
+            'neovim/nvim-lspconfig',
+        },
+        -- A list of servers to automatically install if they're not already installed.
+        ensure_installed = {
+            'lua_ls',
+            'rust_analyzer',
+            'clangd',
+        },
+        automatic_enable = { false },
     },
 }

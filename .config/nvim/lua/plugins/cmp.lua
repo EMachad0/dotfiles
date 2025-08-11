@@ -10,10 +10,6 @@ return {
         },
         event = { 'InsertEnter', 'CmdlineEnter' },
         opts = function()
-            -- lsp_zero configure the autocompletion settings.
-            local lsp_zero = require('lsp-zero')
-            lsp_zero.extend_cmp()
-
             -- ghost text
             vim.api.nvim_set_hl(0, 'CmpGhostText', { link = 'Comment', default = true })
 
