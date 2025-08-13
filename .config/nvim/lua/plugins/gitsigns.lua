@@ -17,14 +17,14 @@ return {
                 -- Navigation
                 map('n', ']c', function()
                     if vim.wo.diff then
-                        vim.cmd.normal({']c', bang = true})
+                        vim.cmd.normal({ ']c', bang = true })
                     else
                         gitsigns.next_hunk()
                     end
                 end, { desc = 'Next Git hunk (or diff change)' })
                 map('n', '[c', function()
                     if vim.wo.diff then
-                        vim.cmd.normal({'[c', bang = true})
+                        vim.cmd.normal({ '[c', bang = true })
                     else
                         gitsigns.prev_hunk()
                     end
@@ -64,8 +64,21 @@ return {
                 map('n', '<leader>tw', gitsigns.toggle_word_diff, { desc = 'Toggle word diff' })
 
                 -- Text object
-                map({'o', 'x'}, 'ih', gitsigns.select_hunk, { desc = 'Select Git hunk' })
+                map({ 'o', 'x' }, 'ih', gitsigns.select_hunk, { desc = 'Select Git hunk' })
             end
         }
-    }
+    },
+    {
+        'radyz/telescope-gitsigns',
+        dependencies = {
+            'lewis6991/gitsigns.nvim',
+            'nvim-telescope/telescope.nvim',
+        },
+        keys = {
+            { '<leader>fh', '<Cmd>Telescope git_signs<Cr>', desc = 'Git hunks' },
+        },
+        config = function()
+            require('telescope').load_extension('git_signs')
+        end,
+    },
 }
