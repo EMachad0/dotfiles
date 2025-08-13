@@ -49,6 +49,9 @@ return {
                     vim.keymap.set(mode, lhs, rhs, lopts)
                 end
 
+                -- Try to load telescope for some LSP actions
+                local telescope_ok, tbuiltin = pcall(require, 'telescope.builtin')
+
                 -- LSP core actions
                 map('n', '<leader>lh', vim.lsp.buf.hover, 'LSP: Hover')
                 map('n', '<leader>lR', vim.lsp.buf.rename, 'LSP: Rename')
@@ -59,8 +62,14 @@ return {
                 map('n', '<leader>lD', vim.lsp.buf.declaration, 'LSP: Go to Declaration')
                 map('n', '<leader>lt', vim.lsp.buf.type_definition, 'LSP: Type Definition')
                 map('n', '<leader>li', vim.lsp.buf.implementation, 'LSP: Go to Implementation')
-                map('n', '<leader>lr', vim.lsp.buf.references, 'LSP: References')
                 map('n', '<leader>lk', vim.lsp.buf.signature_help, 'LSP: Signature Help')
+
+                -- References (Telescope if available)
+                if telescope_ok then
+                    map('n', '<leader>lr', tbuiltin.lsp_references, 'LSP: References')
+                else
+                    map('n', '<leader>lr', vim.lsp.buf.references, 'LSP: References')
+                end
 
                 -- Diagnostics
                 map('n', '<leader>le', vim.diagnostic.open_float, 'Diagnostics: Line Diagnostics')
@@ -71,7 +80,6 @@ return {
                 map('n', '<leader>lq', vim.diagnostic.setloclist, 'Diagnostics: To LocList')
 
                 -- Symbols (Telescope if available)
-                local telescope_ok, tbuiltin = pcall(require, 'telescope.builtin')
                 if telescope_ok then
                     map('n', '<leader>ls', tbuiltin.lsp_document_symbols, 'LSP: Document Symbols')
                     map('n', '<leader>lS', tbuiltin.lsp_dynamic_workspace_symbols, 'LSP: Workspace Symbols')
