@@ -12,9 +12,9 @@ return {
                 server = {
                     -- capabilities = lsp_zero.get_capabilities(),
                     settings = {
-                        ["rust-analyzer"] = {
+                        ['rust-analyzer'] = {
                             diagnostics = {
-                                disabled = { "inactive-code" },
+                                disabled = { 'inactive-code' },
                             },
                         },
                     },

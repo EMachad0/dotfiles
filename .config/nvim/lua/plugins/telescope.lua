@@ -7,7 +7,7 @@ return {
     },
     keys = {
         -- find
-        { '<leader>fb', '<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>',  desc = 'Recent Buffers' },
+        { '<leader>fb', '<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>', desc = 'Recent Buffers' },
         {
             '<leader>ff',
             function()
@@ -92,7 +92,7 @@ return {
 
         telescope.setup({
             defaults = {
-                file_ignore_patterns = { ".git/" },
+                file_ignore_patterns = { '.git/' },
                 mappings = {
                     i = {},
                     n = {},
@@ -102,14 +102,14 @@ return {
                 find_files = {
                     mappings = {
                         i = {
-                            ["<C-.>"] = relaunch_find_files_with_hidden,
+                            ['<C-.>'] = relaunch_find_files_with_hidden,
                         },
                     },
                 },
                 live_grep = {
                     mappings = {
                         i = {
-                            ["<C-.>"] = relaunch_live_grep_with_hidden,
+                            ['<C-.>'] = relaunch_live_grep_with_hidden,
                         },
                     },
                 },

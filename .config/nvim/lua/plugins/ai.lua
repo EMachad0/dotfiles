@@ -1,10 +1,10 @@
 return {
     {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
+        'zbirenbaum/copilot.lua',
+        cmd = 'Copilot',
+        event = 'InsertEnter',
         config = function()
-            require("copilot").setup({
+            require('copilot').setup({
                 -- disable commands as copilot will be used through cmp
                 suggestion = { enabled = false },
                 panel = { enabled = false },
@@ -12,36 +12,39 @@ return {
         end,
     },
     {
-        "zbirenbaum/copilot-cmp",
+        'zbirenbaum/copilot-cmp',
         -- Ensure copilot and cmp are available first
         dependencies = {
-            "zbirenbaum/copilot.lua",
-            "hrsh7th/nvim-cmp",
-            "onsails/lspkind.nvim",
+            'zbirenbaum/copilot.lua',
+            'hrsh7th/nvim-cmp',
+            'onsails/lspkind.nvim',
         },
-        event = "InsertEnter",
+        event = 'InsertEnter',
         config = function()
             -- configure cmp + copilot-cmp when cmp is available
-            local has_cmp, cmp = pcall(require, "cmp")
+            local has_cmp, cmp = pcall(require, 'cmp')
             if has_cmp then
                 -- initialize copilot-cmp
-                require("copilot_cmp").setup()
+                require('copilot_cmp').setup()
 
                 -- inject copilot into cmp sources (avoid duplicates)
                 local sources = cmp.get_config().sources or {}
                 local has_copilot = false
                 for _, src in ipairs(sources) do
-                    if src.name == "copilot" then has_copilot = true break end
+                    if src.name == 'copilot' then
+                        has_copilot = true
+                        break
+                    end
                 end
                 if not has_copilot then
-                    table.insert(sources, 1, { name = "copilot", group_index = 2 })
+                    table.insert(sources, 1, { name = 'copilot', group_index = 2 })
                 end
 
                 -- Sorting comparators recommended by copilot-cmp
                 local sorting = cmp.get_config().sorting or {}
                 sorting.priority_weight = 2
                 sorting.comparators = {
-                    require("copilot_cmp.comparators").prioritize,
+                    require('copilot_cmp.comparators').prioritize,
                     cmp.config.compare.offset,
                     -- cmp.config.compare.scopes, -- intentionally disabled per default
                     cmp.config.compare.exact,
@@ -61,10 +64,10 @@ return {
             end
 
             -- ensure lspkind shows a Copilot icon without touching lsp.lua
-            local has_lspkind, lspkind = pcall(require, "lspkind")
+            local has_lspkind, lspkind = pcall(require, 'lspkind')
             if has_lspkind then
                 lspkind.init({
-                    symbol_map = { Copilot = "" },
+                    symbol_map = { Copilot = '' },
                 })
             end
         end,
