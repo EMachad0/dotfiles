@@ -32,6 +32,9 @@ set autoindent
 " space as leader
 let mapleader = " "
 
+" keep undo history between sessions
+set undofile
+
 " Plugins
 lua require('plugin_manager')
 
