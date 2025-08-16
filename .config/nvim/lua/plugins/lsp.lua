@@ -1,3 +1,36 @@
+-- === Custom Code keymaps ===
+local function copy_line_diagnostics()
+    local diagnostics = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
+    if #diagnostics == 0 then
+        vim.notify('No diagnostics on current line', vim.log.levels.INFO)
+        return
+    end
+    local msgs = {}
+    for _, d in ipairs(diagnostics) do
+        table.insert(msgs, d.message)
+    end
+    local text = table.concat(msgs, '\n')
+    vim.fn.setreg('+', text)
+    vim.notify('Copied line diagnostics to clipboard', vim.log.levels.INFO)
+end
+
+local function copy_file_diagnostics()
+    local diagnostics = vim.diagnostic.get(0)
+    if #diagnostics == 0 then
+        vim.notify('No diagnostics in file', vim.log.levels.INFO)
+        return
+    end
+    local msgs = {}
+    for _, d in ipairs(diagnostics) do
+        local lnum = d.lnum + 1
+        table.insert(msgs, string.format('%d:%d: %s', lnum, d.col + 1, d.message))
+    end
+    local text = table.concat(msgs, '\n')
+    vim.fn.setreg('+', text)
+    vim.notify('Copied file diagnostics to clipboard', vim.log.levels.INFO)
+end
+-- ===============================
+
 return {
     {
         'williamboman/mason.nvim',
@@ -78,6 +111,8 @@ return {
                 map('n', '<leader>l]', function() vim.diagnostic.jump({ count = 1, float = true }) end,
                     'Diagnostics: Next')
                 map('n', '<leader>lq', vim.diagnostic.setloclist, 'Diagnostics: To LocList')
+                map('n', '<leader>ly', copy_line_diagnostics, 'Diagnostics: Copy Line Diagnostics')
+                map('n', '<leader>lY', copy_file_diagnostics, 'Diagnostics: Copy File Diagnostics')
 
                 -- Symbols (Telescope if available)
                 if telescope_ok then
