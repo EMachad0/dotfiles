@@ -8,9 +8,11 @@ return {
         -- rustaceanvim is lazy loaded by default, but we can set it to load on demand
         lazy = false,
         config = function()
+            local shared = require('config.lsp.shared')
             vim.g.rustaceanvim = {
                 server = {
-                    -- capabilities = lsp_zero.get_capabilities(),
+                    on_attach = shared.on_attach,
+                    capabilities = shared.make_capabilities(),
                     settings = {
                         ['rust-analyzer'] = {
                             diagnostics = {
