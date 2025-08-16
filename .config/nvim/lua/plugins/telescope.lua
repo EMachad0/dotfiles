@@ -41,7 +41,7 @@ return {
         -- undo buffer
         { '<leader>fu', '<cmd>Telescope undo<cr>', desc = 'Undo' },
         -- git
-        { '<leader>ft', '<cmd>Telescope git_status<cr>', desc = 'Git Status' },
+        { '<leader>fg', '<cmd>Telescope git_status<cr>', desc = 'Git Status' },
         { '<leader>fh', '<cmd>Telescope git_commits<cr>', desc = 'Git Commits' },
         { '<leader>fH', '<cmd>Telescope git_bcommits<cr>', desc = 'Git Buffer Commits' },
     },
