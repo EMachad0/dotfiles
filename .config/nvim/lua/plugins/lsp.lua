@@ -65,4 +65,19 @@ return {
         },
         automatic_enable = { false },
     },
+    -- action preview picker plugin
+    {
+        'aznhe21/actions-preview.nvim',
+        dependencies = {
+            'nvim-telescope/telescope.nvim'
+        },
+        opts = function()
+            local v = require('telescope.config').values
+            return {
+                backend = { 'telescope' },
+                -- Copy Telescope's resolved defaults so the picker mirror telescope setup
+                telescope = vim.tbl_deep_extend('force', {}, v),
+            }
+        end,
+    },
 }

@@ -60,10 +60,17 @@ local function on_attach(_, bufnr)
     -- Try to load telescope for some LSP actions
     local telescope_ok, tbuiltin = pcall(require, 'telescope.builtin')
 
+    -- Try to load actions-preview for code actions
+    local actions_preview_ok, actions_preview = pcall(require, 'actions-preview')
+
     -- LSP core actions
     map('n', '<leader>lh', vim.lsp.buf.hover, 'Display Hover')
     map('n', '<leader>lR', vim.lsp.buf.rename, 'Rename')
-    map('n', '<leader>la', vim.lsp.buf.code_action, 'Code Actions')
+    if actions_preview_ok then
+        map({ 'v', 'n' }, '<leader>la', actions_preview.code_actions, 'Code Actions')
+    else
+        map({ 'v', 'n' }, '<leader>la', vim.lsp.buf.code_action, 'Code Actions')
+    end
 
     -- Go to/peek
     map('n', '<leader>ld', vim.lsp.buf.definition, 'Go to Definition')
