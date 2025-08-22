@@ -37,7 +37,7 @@ return {
                     end
                 end
                 if not has_copilot then
-                    table.insert(sources, 1, { name = 'copilot', group_index = 2 })
+                    table.insert(sources, 1, { name = 'copilot', group_index = 1 })
                 end
 
                 -- Sorting comparators recommended by copilot-cmp
