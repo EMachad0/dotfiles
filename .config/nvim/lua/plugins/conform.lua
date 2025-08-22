@@ -7,7 +7,7 @@ return {
     opts = {
         -- Define your formatters
         formatters_by_ft = {
-            lua = { 'stylua' },
+            lua = { 'stylua', lsp_format = 'fallback' },
 
             rust = { 'rustfmt' },
 

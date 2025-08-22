@@ -39,11 +39,11 @@ return {
             desc = 'Find String',
         },
         -- undo buffer
-        { '<leader>fu', '<cmd>Telescope undo<cr>', desc = 'Undo' },
+        { '<leader>fu', '<cmd>Telescope undo<cr>',                                     desc = 'Undo' },
         -- git
-        { '<leader>fg', '<cmd>Telescope git_status<cr>', desc = 'Git Status' },
-        { '<leader>fh', '<cmd>Telescope git_commits<cr>', desc = 'Git Commits' },
-        { '<leader>fH', '<cmd>Telescope git_bcommits<cr>', desc = 'Git Buffer Commits' },
+        { '<leader>fg', '<cmd>Telescope git_status<cr>',                               desc = 'Git Status' },
+        { '<leader>fh', '<cmd>Telescope git_commits<cr>',                              desc = 'Git Commits' },
+        { '<leader>fH', '<cmd>Telescope git_bcommits<cr>',                             desc = 'Git Buffer Commits' },
     },
     config = function()
         local telescope = require('telescope')
@@ -93,8 +93,12 @@ return {
         telescope.setup({
             defaults = {
                 file_ignore_patterns = { '.git/' },
+                -- Truncate long paths from the start so filenames stay visible
+                path_display = { 'smart' },
                 mappings = {
-                    i = {},
+                    i = {
+                        ['<esc>'] = actions.close
+                    },
                     n = {},
                 },
             },
@@ -112,6 +116,9 @@ return {
                             ['<C-.>'] = relaunch_live_grep_with_hidden,
                         },
                     },
+                },
+                lsp_references = {
+                    show_line = false,
                 },
             },
         })
