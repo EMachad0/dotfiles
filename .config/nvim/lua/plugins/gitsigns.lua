@@ -6,6 +6,14 @@ return {
         },
         opts = {
             on_attach = function(bufnr)
+                -- Set up which-key gitsigns keymap group
+                local wk_ok, wk = pcall(require, 'which-key')
+                if wk_ok then
+                    wk.add({
+                        { '<leader>h', group = 'Git Hunk', mode = { 'n', 'v' } },
+                    })
+                end
+
                 local gitsigns = package.loaded.gitsigns
 
                 local function map(mode, l, r, opts)
@@ -17,18 +25,18 @@ return {
                 -- Navigation
                 map('n', ']c', function()
                     if vim.wo.diff then
-                        vim.cmd.normal({ ']c', bang = true })
+                        vim.cmd.normal({ ']g', bang = true })
                     else
                         gitsigns.next_hunk()
                     end
-                end, { desc = 'Next Git hunk (or diff change)' })
+                end, { desc = 'Next Git hunk' })
                 map('n', '[c', function()
                     if vim.wo.diff then
-                        vim.cmd.normal({ '[c', bang = true })
+                        vim.cmd.normal({ '[g', bang = true })
                     else
                         gitsigns.prev_hunk()
                     end
-                end, { desc = 'Previous Git hunk (or diff change)' })
+                end, { desc = 'Previous Git hunk' })
 
                 -- Actions
                 map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'Stage hunk' })

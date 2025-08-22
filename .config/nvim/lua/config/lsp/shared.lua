@@ -49,6 +49,15 @@ local function on_attach(_, bufnr)
         update_in_insert = false,
     })
 
+    -- Set up which-key LSP keymap group
+    local wk_ok, wk = pcall(require, 'which-key')
+    if wk_ok then
+        wk.add({
+            { '<leader>l',  group = 'Lsp',       mode = { 'n', 'v' } },
+            { '<leader>lw', group = 'Workspace', mode = { 'n' } },
+        })
+    end
+
     -- keymaps
     local keymap_options = { buffer = bufnr, silent = true }
 

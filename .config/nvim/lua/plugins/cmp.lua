@@ -16,6 +16,7 @@ return {
             -- Require the cmp and lspconfig modules
             local cmp = require('cmp')
             local lspkind = require('lspkind')
+            local luasnip_ok, luasnip = pcall(require, 'luasnip')
 
             -- autocomplete toggle
             vim.g.cmp_toggle = true
@@ -24,14 +25,56 @@ return {
                     vim.g.cmp_toggle = not vim.g.cmp_toggle
                     local status
                     if vim.g.cmp_toggle then
-                        status = 'ENABLED'
+                        status = 'enabled'
                     else
-                        status = 'DISABLED'
+                        status = 'disabled'
                     end
-                    print('nvim-cmp', status)
+                    vim.notify(('nvim-cmp %s'):format(status), vim.log.levels.INFO, { title = 'Completion' })
                 end,
                 { desc = 'toggle nvim-cmp' }
             )
+
+            -- mappings
+            local enter_mapping = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    if luasnip_ok and luasnip.expandable() then
+                        luasnip.expand()
+                    else
+                        cmp.confirm({ select = true })
+                    end
+                else
+                    fallback()
+                end
+            end)
+
+            -- tab completion behavior recommended by copilot-cmp
+            local function has_words_before()
+                if vim.api.nvim_get_option_value('buftype', { buf = 0 }) == 'prompt' then return false end
+                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                return col ~= 0 and
+                    vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match('^%s*$') == nil
+            end
+
+            -- Super Tab: select next item or jump to next snipet or fallback
+            local tab_mapping = cmp.mapping(function(fallback)
+                if cmp.visible() and has_words_before() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                elseif luasnip_ok and luasnip.locally_jumpable(1) then
+                    luasnip.jump(1)
+                else
+                    fallback()
+                end
+            end, { 'i', 's' })
+            -- Shift-Tab: select previous item or fallback
+            local stap_mapping = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                elseif luasnip_ok and luasnip.locally_jumpable(-1) then
+                    luasnip.jump(-1)
+                else
+                    fallback()
+                end
+            end, { 'i', 's' })
 
             return {
                 enabled = function()
@@ -42,6 +85,10 @@ return {
                 },
                 mapping = cmp.mapping.preset.insert({
                     ['<C-e>'] = cmp.mapping.close(),
+                    ['<CR>'] = enter_mapping,
+                    ['<Right>'] = cmp.mapping.confirm(),
+                    ['<Tab>'] = tab_mapping,
+                    ['<S-Tab>'] = stap_mapping,
                 }),
                 sources = cmp.config.sources(
                     { { name = 'nvim_lsp' }, { name = 'path' } }, -- priority 1
@@ -69,13 +116,13 @@ return {
             }
         end
     },
-    -- snipets and main keybinds
+    -- snipets
     {
         'L3MON4D3/LuaSnip',
         -- follow latest release.
         version = 'v2.*',
         -- install jsregexp (optional!).
-        -- build = "make install_jsregexp"
+        build = 'make install_jsregexp',
         dependencies = {
             {
                 'rafamadriz/friendly-snippets',
@@ -98,63 +145,6 @@ return {
                 end,
             },
         },
-        config = function()
-            local luasnip = require('luasnip')
-            local cmp = require('cmp')
-
-            local enter_mapping = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    if luasnip.expandable() then
-                        luasnip.expand()
-                    else
-                        cmp.confirm({
-                            select = true,
-                        })
-                    end
-                else
-                    fallback()
-                end
-            end)
-
-            -- tab completion behavior recommended by copilot-cmp
-            local function has_words_before()
-                if vim.api.nvim_get_option_value('buftype', { buf = 0 }) == 'prompt' then return false end
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0 and
-                    vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match('^%s*$') == nil
-            end
-
-            -- Super Tab: select next item or jump to next snipet or fallback
-            local tab_mapping = cmp.mapping(function(fallback)
-                if cmp.visible() and has_words_before() then
-                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                elseif luasnip.locally_jumpable(1) then
-                    luasnip.jump(1)
-                else
-                    fallback()
-                end
-            end, { 'i', 's' })
-            -- Shift-Tab: select previous item or fallback
-            local stap_mapping = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-                elseif luasnip.locally_jumpable(-1) then
-                    luasnip.jump(-1)
-                else
-                    fallback()
-                end
-            end, { 'i', 's' })
-
-            local mappings = cmp.mapping.preset.insert({
-                ['<CR>'] = enter_mapping,
-                ['<Tab>'] = tab_mapping,
-                ['<S-Tab>'] = stap_mapping,
-            })
-
-            cmp.setup({
-                mapping = mappings,
-            })
-        end
     },
     -- vim command completion
     {
@@ -163,9 +153,13 @@ return {
         config = function()
             local cmp = require('cmp')
 
+            local mapping = vim.tbl_deep_extend('force', cmp.mapping.preset.cmdline(), {
+                ['<Right>'] = { c = cmp.mapping.confirm() },
+            })
+
             -- Search (/, ?): use buffer words
             cmp.setup.cmdline({ '/', '?' }, {
-                mapping = cmp.mapping.preset.cmdline(),
+                mapping = mapping,
                 sources = {
                     { name = 'buffer' },
                 },
@@ -173,7 +167,7 @@ return {
 
             -- Commands (:): paths first, then command names
             cmp.setup.cmdline(':', {
-                mapping = cmp.mapping.preset.cmdline(),
+                mapping = mapping,
                 sources = cmp.config.sources({
                     { name = 'path' },
                 }, {

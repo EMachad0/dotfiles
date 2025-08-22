@@ -51,6 +51,14 @@ return {
         local actions = require('telescope.actions')
         local action_state = require('telescope.actions.state')
 
+        -- Set up which-key telescope keymap group
+        local wk_ok, wk = pcall(require, 'which-key')
+        if wk_ok then
+            wk.add({
+                { '<leader>f', group = 'Telescope', mode = { 'n' } },
+            })
+        end
+
         -- Persisted session toggle state
         if vim.g.telescope_show_hidden_files == nil then
             vim.g.telescope_show_hidden_files = false
