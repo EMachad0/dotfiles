@@ -20,7 +20,13 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             { 'hrsh7th/cmp-nvim-lsp' },
-            { 'j-hui/fidget.nvim' },
+            {
+                'j-hui/fidget.nvim',
+                tag = '*', -- pin to latest tag
+                opts = {
+                    -- options
+                },
+            },
         },
         config = function()
             local shared = require('config.lsp.shared')
