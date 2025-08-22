@@ -8,12 +8,16 @@ return {
         -- Define your formatters
         formatters_by_ft = {
             lua = { 'stylua' },
+
             rust = { 'rustfmt' },
+
+            ruby = { 'rubocop' },
+
             -- JS/TS stack: prefer Prettier, then eslint_d
-            javascript = { 'prettierd', 'prettier', 'eslint', stop_after_first = true },
-            javascriptreact = { 'prettierd', 'prettier', 'eslint', stop_after_first = true },
-            typescript = { 'prettierd', 'prettier', 'eslint', stop_after_first = true },
-            typescriptreact = { 'prettierd', 'prettier', 'eslint', stop_after_first = true },
+            javascript = { 'prettierd', 'prettier', 'eslint_d', stop_after_first = true },
+            javascriptreact = { 'prettierd', 'prettier', 'eslint_d', stop_after_first = true },
+            typescript = { 'prettierd', 'prettier', 'eslint_d', stop_after_first = true },
+            typescriptreact = { 'prettierd', 'prettier', 'eslint_d', stop_after_first = true },
 
             -- Other Prettier-supported filetypes
             json = { 'prettierd', 'prettier', stop_after_first = true },
