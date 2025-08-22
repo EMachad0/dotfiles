@@ -61,54 +61,53 @@ local function on_attach(_, bufnr)
     local telescope_ok, tbuiltin = pcall(require, 'telescope.builtin')
 
     -- LSP core actions
-    map('n', '<leader>lh', vim.lsp.buf.hover, 'LSP: Hover')
-    map('n', '<leader>lR', vim.lsp.buf.rename, 'LSP: Rename')
-    map('n', '<leader>la', vim.lsp.buf.code_action, 'LSP: Code Action')
+    map('n', '<leader>lh', vim.lsp.buf.hover, 'Display Hover')
+    map('n', '<leader>lR', vim.lsp.buf.rename, 'Rename')
+    map('n', '<leader>la', vim.lsp.buf.code_action, 'Code Actions')
 
     -- Go to/peek
-    map('n', '<leader>ld', vim.lsp.buf.definition, 'LSP: Go to Definition')
-    map('n', '<leader>lD', vim.lsp.buf.declaration, 'LSP: Go to Declaration')
-    map('n', '<leader>lt', vim.lsp.buf.type_definition, 'LSP: Type Definition')
-    map('n', '<leader>li', vim.lsp.buf.implementation, 'LSP: Go to Implementation')
-    map('n', '<leader>lk', vim.lsp.buf.signature_help, 'LSP: Signature Help')
+    map('n', '<leader>ld', vim.lsp.buf.definition, 'Go to Definition')
+    map('n', '<leader>lD', vim.lsp.buf.declaration, 'Go to Declaration')
+    map('n', '<leader>lt', vim.lsp.buf.type_definition, 'Type Definition')
+    map('n', '<leader>li', vim.lsp.buf.implementation, 'Go to Implementation')
+    map('n', '<leader>lk', vim.lsp.buf.signature_help, 'Signature Help')
 
     -- References (Telescope if available)
     if telescope_ok then
-        map('n', '<leader>lr', tbuiltin.lsp_references, 'LSP: References')
+        map('n', '<leader>lr', tbuiltin.lsp_references, 'Find References')
     else
-        map('n', '<leader>lr', vim.lsp.buf.references, 'LSP: References')
+        map('n', '<leader>lr', vim.lsp.buf.references, 'Find References')
     end
 
     -- Diagnostics
-    map('n', '<leader>le', vim.diagnostic.open_float, 'Diagnostics: Line Diagnostics')
+    map('n', '<leader>le', vim.diagnostic.open_float, 'Float line Diagnostics')
     map('n', '<leader>l[', function() vim.diagnostic.jump({ count = -1, float = true }) end,
         'Diagnostics: Previous')
     map('n', '<leader>l]', function() vim.diagnostic.jump({ count = 1, float = true }) end,
         'Diagnostics: Next')
-    map('n', '<leader>lq', vim.diagnostic.setloclist, 'Diagnostics: To LocList')
-    map('n', '<leader>ly', copy_line_diagnostics, 'Diagnostics: Copy Line Diagnostics')
-    map('n', '<leader>lY', copy_file_diagnostics, 'Diagnostics: Copy File Diagnostics')
+    map('n', '<leader>ly', copy_line_diagnostics, 'Copy Line Diagnostics')
+    map('n', '<leader>lY', copy_file_diagnostics, 'Copy File Diagnostics')
 
     -- Symbols (Telescope if available)
     if telescope_ok then
-        map('n', '<leader>ls', tbuiltin.lsp_document_symbols, 'LSP: Document Symbols')
-        map('n', '<leader>lS', tbuiltin.lsp_dynamic_workspace_symbols, 'LSP: Workspace Symbols')
+        map('n', '<leader>ls', tbuiltin.lsp_document_symbols, 'Document Symbols')
+        map('n', '<leader>lS', tbuiltin.lsp_dynamic_workspace_symbols, 'Workspace Symbols')
     else
         map('n', '<leader>ls', vim.lsp.buf.document_symbol, 'LSP: Document Symbols')
         map('n', '<leader>lS', vim.lsp.buf.workspace_symbol, 'LSP: Workspace Symbols')
     end
 
     -- Workspace folders
-    map('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, 'LSP: Workspace Add Folder')
-    map('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, 'LSP: Workspace Remove Folder')
+    map('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder')
+    map('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder')
     map('n', '<leader>lwl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, 'LSP: Workspace List Folders')
+    end, 'Workspace List Folders')
 
-    -- Formatting
+    -- Formatting is handled by conform.nvim
     map({ 'n', 'v' }, '<leader>lf', function()
-        vim.lsp.buf.format({ async = true })
-    end, 'LSP: Format')
+        require('conform').format({ async = true })
+    end, 'Format')
 end
 
 local function make_capabilities()
@@ -122,4 +121,3 @@ return {
     on_attach = on_attach,
     make_capabilities = make_capabilities,
 }
-
