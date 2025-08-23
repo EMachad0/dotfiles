@@ -3,6 +3,20 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
+        -- Minimal, custom statusline for Neo-tree buffers only
+        local neotree_extension = {
+            sections = {
+                lualine_a = {},
+                lualine_b = { 'filetype' },
+                lualine_c = {},
+                lualine_x = {},
+                lualine_y = {},
+                lualine_z = {},
+            },
+            inactive_sections = {},
+            filetypes = { 'neo-tree' },
+        }
+
         require('lualine').setup {
             options = {
                 icons_enabled = true,
@@ -41,7 +55,7 @@ return {
             tabline = {},
             winbar = {},
             inactive_winbar = {},
-            extensions = {},
+            extensions = { neotree_extension },
         }
     end
 }
