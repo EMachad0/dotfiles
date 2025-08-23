@@ -1,14 +1,5 @@
 return {
     {
-        'kevinhwang91/nvim-hlslens',
-        config = function()
-            require('hlslens').setup({
-                nearest_only = true,
-                nearest_float_when = 'always',
-            })
-        end
-    },
-    {
         'petertriho/nvim-scrollbar',
         event = 'VeryLazy',
         dependencies = {
@@ -17,7 +8,10 @@ return {
         },
         config = function()
             require('scrollbar').setup()
-            require('scrollbar.handlers.search').setup()
+            require('scrollbar.handlers.search').setup({
+                -- remove hlslens floating window
+                override_lens = function() end,
+            })
             require('scrollbar.handlers.gitsigns').setup()
             require('scrollbar.handlers.diagnostic').setup()
         end,
