@@ -128,8 +128,17 @@ end
 
 local function make_capabilities()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local ok, cmp = pcall(require, 'cmp_nvim_lsp')
-    if ok then capabilities = cmp.default_capabilities(capabilities) end
+
+    -- Cmp-nvim-lsp supports additional completion capabilities
+    local cmp_ok, cmp = pcall(require, 'cmp_nvim_lsp')
+    if cmp_ok then capabilities = cmp.default_capabilities(capabilities) end
+
+    -- File-operations supports additional file operation capabilities
+    local lsp_file_ops_ok, lsp_file_ops = pcall(require, 'lsp-file-operations')
+    if lsp_file_ops_ok then
+        capabilities = vim.tbl_deep_extend('force', capabilities, lsp_file_ops.default_capabilities())
+    end
+
     return capabilities
 end
 
