@@ -24,10 +24,10 @@ return {
             },
             sections = {
                 lualine_a = {},
-                lualine_b = {},
+                lualine_b = { 'branch', 'diff' },
                 lualine_c = { 'filename' },
-                lualine_x = { 'fileformat', 'filetype' },
-                lualine_y = {},
+                lualine_x = { 'diagnostics' },
+                lualine_y = { 'filetype' },
                 lualine_z = {},
             },
             inactive_sections = {
