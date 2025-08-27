@@ -66,7 +66,7 @@ return {
             'lua_ls',
             'rust_analyzer',
             'clangd',
-            'tvsls',
+            'vtsls',
             'eslint',
         },
         automatic_enable = { false },
