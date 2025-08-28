@@ -1,3 +1,11 @@
+local function get_svelte_ts_plugin_location()
+    local svelte_path = vim.fn.exepath('svelteserver')
+    if svelte_path == '' then
+        return ''
+    end
+    return vim.fn.fnamemodify(svelte_path, ':h:h') .. '/packages/svelte-language-server/node_modules/typescript-svelte-plugin'
+end
+
 ---@type vim.lsp.Config
 return {
     cmd = { 'vtsls', '--stdio' },
@@ -8,6 +16,19 @@ return {
         'typescript',
         'typescriptreact',
         'typescript.tsx',
+    },
+    settings = {
+        vtsls = {
+            tsserver = {
+                globalPlugins = {
+                    {
+                        name = 'typescript-svelte-plugin',
+                        location = get_svelte_ts_plugin_location(),
+                        enableForWorkspaceTypeScriptVersions = true,
+                    },
+                },
+            }
+        },
     },
     root_dir = function(bufnr, on_dir)
         -- The project root is where the LSP can be started from
