@@ -22,7 +22,7 @@ return {
             { 'hrsh7th/cmp-nvim-lsp' },
             {
                 'j-hui/fidget.nvim',
-                tag = '*', -- pin to latest tag
+                tag = 'v1.6.1', -- pin to latest tag
                 opts = {
                     -- options
                 },
