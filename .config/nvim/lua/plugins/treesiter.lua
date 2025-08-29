@@ -44,5 +44,19 @@ return {
                 indent = { enable = true },
             })
         end
+    },
+    {
+        'windwp/nvim-ts-autotag',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        Lazy = false, -- autotag already has a lazy system
+        opts = {
+            -- Defaults
+            enable_close = true,  -- Auto close tags
+            enable_rename = true, -- Auto rename pairs of tags
+            enable_close_on_slash = false -- Auto close on trailing </
+        },
+        config = function()
+            require('nvim-ts-autotag').setup()
+        end
     }
 }
