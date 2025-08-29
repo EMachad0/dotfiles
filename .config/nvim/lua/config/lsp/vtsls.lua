@@ -44,7 +44,7 @@ return {
     end,
     before_init = function(_, config)
         local mason_regisry = require('mason-registry')
-        local mason_pkg_path = vim.fn.expand('$MASON') .. '/packages/'
+        local mason_pkg_path = vim.fn.expand('$MASON') .. '/packages'
 
         local root_dir = config.root_dir
         if not root_dir or root_dir == '' then return end
@@ -60,6 +60,6 @@ return {
             end
         end
 
-        config.settings.vtsls.tsserver.globalPlugins = plugins
+        config.settings.vtsls['tsserver'].globalPlugins = plugins
     end,
 }
