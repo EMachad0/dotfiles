@@ -1,9 +1,10 @@
-local function get_svelte_ts_plugin_location()
-    local svelte_path = vim.fn.exepath('svelteserver')
-    if svelte_path == '' then
-        return ''
+-- Detect if the workspace contains a Svelte project
+local function is_svelte_project(root_dir)
+    local util = require('lspconfig.util')
+    if util.root_pattern('svelte.config.js', 'svelte.config.ts')(root_dir) then
+        return true
     end
-    return vim.fn.fnamemodify(svelte_path, ':h:h') .. '/packages/svelte-language-server/node_modules/typescript-svelte-plugin'
+    return false
 end
 
 ---@type vim.lsp.Config
@@ -21,11 +22,7 @@ return {
         vtsls = {
             tsserver = {
                 globalPlugins = {
-                    {
-                        name = 'typescript-svelte-plugin',
-                        location = get_svelte_ts_plugin_location(),
-                        enableForWorkspaceTypeScriptVersions = true,
-                    },
+                    -- Plugins will be added dynamically in before_init
                 },
             }
         },
@@ -44,5 +41,25 @@ return {
         end
 
         on_dir(project_root)
+    end,
+    before_init = function(_, config)
+        local mason_regisry = require('mason-registry')
+        local mason_pkg_path = vim.fn.expand('$MASON') .. '/packages/'
+
+        local root_dir = config.root_dir
+        if not root_dir or root_dir == '' then return end
+
+        local plugins = {}
+        if is_svelte_project(root_dir) then
+            if mason_regisry.is_installed('svelte-language-server') then
+                table.insert(plugins, {
+                    name = 'typescript-svelte-plugin',
+                    location = mason_pkg_path .. '/svelte-language-server/node_modules/typescript-svelte-plugin',
+                    enableForWorkspaceTypeScriptVersions = true,
+                })
+            end
+        end
+
+        config.settings.vtsls.tsserver.globalPlugins = plugins
     end,
 }
