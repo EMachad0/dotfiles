@@ -1,6 +1,10 @@
-.config/AWS*
-.config/uv
-.config/gh
-.config/tracy
-.config/github-copilot
-.config/op
+.config
+!.config/alacritty
+!.config/bat
+!.config/karabiner
+!.config/nvim
+!.config/sketchybar
+!.config/tmux
+!.config/zellij
+!.config/starship.toml
+
