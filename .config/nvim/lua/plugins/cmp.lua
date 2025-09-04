@@ -78,6 +78,15 @@ return {
 
             return {
                 enabled = function()
+                    -- disable cmp on neo-tree and telescope buffers
+                    local buftype = vim.api.nvim_get_option_value('buftype', { buf = 0 })
+                    if buftype == 'prompt' then
+                        return false
+                    end
+                    local ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+                    if ft == 'neo-tree' or ft == 'TelescopePrompt' then
+                        return false
+                    end
                     return vim.g.cmp_toggle
                 end,
                 completion = {

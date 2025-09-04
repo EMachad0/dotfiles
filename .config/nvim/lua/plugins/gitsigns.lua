@@ -23,14 +23,14 @@ return {
                 end
 
                 -- Navigation
-                map('n', ']c', function()
+                map('n', ']g', function()
                     if vim.wo.diff then
                         vim.cmd.normal({ ']g', bang = true })
                     else
                         gitsigns.next_hunk()
                     end
                 end, { desc = 'Next Git hunk' })
-                map('n', '[c', function()
+                map('n', '[g', function()
                     if vim.wo.diff then
                         vim.cmd.normal({ '[g', bang = true })
                     else
