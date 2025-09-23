@@ -37,11 +37,7 @@ return {
             -- mappings
             local enter_mapping = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    if luasnip_ok and luasnip.expandable() then
-                        luasnip.expand()
-                    else
-                        cmp.confirm({ select = true })
-                    end
+                    cmp.confirm({ select = true })
                 else
                     fallback()
                 end
