@@ -85,8 +85,9 @@ return {
                     end
                     return vim.g.cmp_toggle
                 end,
+                preselect = cmp.PreselectMode.None,
                 completion = {
-                    completeopt = 'menu,menuone,noinsert', -- auto select first item
+                    completeopt = 'menu,menuone,noinsert,noselect',
                 },
                 mapping = cmp.mapping.preset.insert({
                     ['<C-e>'] = cmp.mapping.close(),
