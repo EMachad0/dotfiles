@@ -50,9 +50,7 @@ yabai -m rule --add app="^Disk Utility$" sub-layer=above manage=off
 yabai -m rule --add app="^System Information$" sub-layer=above manage=off
 yabai -m rule --add app="^Activity Monitor$" sub-layer=above manage=off
 yabai -m rule --add app="^Spotify$" manage=off
-# pretty sure arc config is not working
-# yabai -m rule --add app="^Arc$" title="Picture in Picture" sub-layer=above manage=off
-# yabai -m rule --add app="^Arc$" title!="." manage=off
+yabai -m rule --add label="Arc PiP" app="^Arc$" title="^$" sub-layer=above mouse_follows_focus=off
 yabai -m rule --add app="^Unity$" manage=off sub-layer=above
 yabai -m rule --add app="^Loom$" manage=off sub-layer=above
 yabai -m rule --add app="bevy" manage=off sub-layer=above
@@ -72,4 +70,3 @@ yabai -m signal --add app="^${JetBrainsApp}" title="( – )" event=window_title_
 
 # feedback
 echo "yabai configuration loaded.."
-

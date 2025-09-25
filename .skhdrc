@@ -119,7 +119,6 @@
 
 # restart Yabi, SpaceBar, and SKHD
 hyper - r : \
-    # launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
     yabai --restart-service; \
     sketchybar --update; \
     skhd --reload
@@ -192,9 +191,6 @@ hyper - i : yabai -m space --toggle padding; \
 # Enable / Disable bar
 hyper - s : sketchybar --bar hidden=current; \
             yabai -m config external_bar $([ $(yabai -m config external_bar | cut -d: -f1) = 'off' ] && echo 'all' || echo 'off'):32:0
-
-### default mode bar color
-:: default : yabai -m config active_window_border_color 0xffe1e3e4
 
 ### resize
 # color
