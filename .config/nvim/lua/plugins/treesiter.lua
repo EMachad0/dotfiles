@@ -19,6 +19,11 @@ return {
                     'kdl',
                     'toml',
                     'haskell',
+                    'html',
+                    'javascript',
+                    'tsx',
+                    'typescript',
+                    'svelte',
                 },
 
                 -- List of parsers to ignore installing (for "all")
