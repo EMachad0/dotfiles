@@ -105,9 +105,12 @@ return {
                 path_display = { 'smart' },
                 mappings = {
                     i = {
-                        ['<esc>'] = actions.close
+                        ['<esc>'] = actions.close,
+                        ['?'] = actions.which_key,
                     },
-                    n = {},
+                    n = {
+                        ['?'] = actions.which_key,
+                    },
                 },
             },
             pickers = {
