@@ -186,8 +186,8 @@ unset __conda_setup
 [ -x "$(command -v bat)" ] && alias cat="bat -pp" || echo "bat not installed"
 [ -x "$(command -v eza)" ] && alias ls="eza --icons" || echo "eza not installed"
 [ -x "$(command -v nvim)" ] && alias vim="nvim" || echo "nvim not installed"
-alias gcc="gcc-14"
-alias g++="g++-14"
+alias gcc="gcc-15"
+alias g++="g++-15"
 
 # signal apps that I am using alacrity
 export TERM=alacritty
