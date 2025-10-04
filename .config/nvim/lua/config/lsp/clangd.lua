@@ -3,7 +3,10 @@
 
 ---@type vim.lsp.Config
 return {
-    cmd = { 'clangd' },
+    cmd = {
+        'clangd',
+        '--query-driver=/opt/homebrew/bin/g++-15',
+    },
     filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
     root_markers = {
         '.clangd',
