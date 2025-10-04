@@ -9,8 +9,6 @@
 --- npm install -g svelte-language-server
 --- ```
 
-local shared = require('config.lsp.shared')
-
 ---@type vim.lsp.Config
 return {
     cmd = { 'svelteserver', '--stdio' },
@@ -24,8 +22,6 @@ return {
         end
     end,
     on_attach = function(client, bufnr)
-        -- Reuse shared LSP on_attach (diagnostic signs, keymaps, etc.)
-        shared.on_attach(client, bufnr)
         -- Workaround to trigger reloading JS/TS files
         -- See https://github.com/sveltejs/language-tools/issues/2008
         vim.api.nvim_create_autocmd('BufWritePost', {

@@ -48,7 +48,26 @@ return {
                     if not ok then
                         vim.notify('LSP config failed: ' .. modname .. '\n' .. mod, vim.log.levels.ERROR)
                     else
-                        vim.lsp.config(name, mod)
+                        -- Compose shared defaults with server-specific config
+                        local cfg = vim.deepcopy(mod)
+
+                        -- Compose on_attach so shared mappings/diagnostics always apply
+                        local server_on_attach = cfg.on_attach
+                        cfg.on_attach = function(client, bufnr)
+                            shared.on_attach(client, bufnr)
+                            if type(server_on_attach) == 'function' then
+                                server_on_attach(client, bufnr)
+                            end
+                        end
+
+                        -- Deep-merge capabilities so server-specific tweaks don't drop shared ones
+                        cfg.capabilities = vim.tbl_deep_extend(
+                            'force',
+                            shared.make_capabilities(),
+                            cfg.capabilities or {}
+                        )
+
+                        vim.lsp.config(name, cfg)
                         vim.lsp.enable(name)
                     end
                 end

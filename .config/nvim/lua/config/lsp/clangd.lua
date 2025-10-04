@@ -1,18 +1,31 @@
+---@class ClangdInitializeResult: lsp.InitializeResult
+---@field offsetEncoding? string
+
 ---@type vim.lsp.Config
 return {
-    -- Force a single position/offset encoding to avoid mixed-client warnings
-    cmd = { 'clangd', '--offset-encoding=utf-16' },
-    capabilities = { offsetEncoding = { 'utf-16' } },
-    init_options = {
-        clangdFileStatus = true,
-        clangdSemanticHighlighting = true,
+    cmd = { 'clangd' },
+    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+    root_markers = {
+        '.clangd',
+        '.clang-tidy',
+        '.clang-format',
+        'compile_commands.json',
+        'compile_flags.txt',
+        'configure.ac', -- AutoTools
+        '.git',
     },
-    filetypes = { 'c', 'cpp', 'cxx', 'cc' },
-    root_dir = function() vim.fn.getcwd() end,
-    settings = {
-        ['clangd'] = {
-            ['compilationDatabasePath'] = 'build',
-            ['fallbackFlags'] = { '-std=c++17' }
-        }
-    }
+    capabilities = {
+        textDocument = {
+            completion = {
+                editsNearCursor = true,
+            },
+        },
+        offsetEncoding = { 'utf-8', 'utf-16' },
+    },
+    ---@param init_result ClangdInitializeResult
+    on_init = function(client, init_result)
+        if init_result.offsetEncoding then
+            client.offset_encoding = init_result.offsetEncoding
+        end
+    end,
 }
