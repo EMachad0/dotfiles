@@ -13,6 +13,14 @@ return {
 
             ruby = { 'rubocop' },
 
+            -- C/C++ family via clang-format
+            c = { 'clang-format' },
+            cpp = { 'clang-format' },
+            objc = { 'clang-format' },
+            objcpp = { 'clang-format' },
+            cuda = { 'clang-format' },
+            proto = { 'clang-format' },
+
             -- JS/TS stack: prefer Prettier, then eslint_d
             javascript = { 'prettierd', 'prettier', 'eslint_d', stop_after_first = true },
             javascriptreact = { 'prettierd', 'prettier', 'eslint_d', stop_after_first = true },
