@@ -55,6 +55,7 @@ yabai -m rule --add app="^Unity$" manage=off sub-layer=above
 yabai -m rule --add app="^Loom$" manage=off sub-layer=above
 yabai -m rule --add app="bevy" manage=off sub-layer=above
 yabai -m rule --add app="yagber" manage=off sub-layer=above
+yabai -m rule --add app='^GIMP$' title!='(^GNU|GIMP$)' manage=off sub-layer=above
 
 # godot
 yabai -m rule --add app="^Godot$" manage=off sub-layer=above
