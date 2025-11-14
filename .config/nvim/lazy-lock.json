@@ -38,5 +38,6 @@
   "telescope-gitsigns": { "branch": "main", "commit": "e568da4b8b6da800bd9274f7b509c0da81fc8615" },
   "telescope-undo.nvim": { "branch": "main", "commit": "928d0c2dc9606e01e2cc547196f48d2eaecf58e5" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026" },
+  "uiua.vim": { "branch": "main", "commit": "7088832aa53258a30ec50639193af8510f621f69" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" }
 }
