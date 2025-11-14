@@ -10,6 +10,9 @@ return {
                 panel = { enabled = false },
             })
         end,
+        keys = {
+            { '<leader>ta', '<Cmd>Copilot toggle<cr>', desc = 'Toggle Copilot' },
+        },
     },
     {
         'zbirenbaum/copilot-cmp',
