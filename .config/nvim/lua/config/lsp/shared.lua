@@ -82,10 +82,16 @@ local function on_attach(_, bufnr)
     end
 
     -- Go to/peek
-    map('n', '<leader>ld', vim.lsp.buf.definition, 'Go to Definition')
+    if telescope_ok then
+        map('n', '<leader>ld', tbuiltin.lsp_definitions, 'Go to Definition')
+        map('n', '<leader>lt', tbuiltin.lsp_type_definitions, 'Type Definition')
+        map('n', '<leader>li', tbuiltin.lsp_implementations, 'Go to Implementation')
+    else
+        map('n', '<leader>ld', vim.lsp.buf.definition, 'Go to Definition')
+        map('n', '<leader>lt', vim.lsp.buf.type_definition, 'Type Definition')
+        map('n', '<leader>li', vim.lsp.buf.implementation, 'Go to Implementation')
+    end
     map('n', '<leader>lD', vim.lsp.buf.declaration, 'Go to Declaration')
-    map('n', '<leader>lt', vim.lsp.buf.type_definition, 'Type Definition')
-    map('n', '<leader>li', vim.lsp.buf.implementation, 'Go to Implementation')
     map('n', '<leader>lk', vim.lsp.buf.signature_help, 'Signature Help')
 
     -- References (Telescope if available)

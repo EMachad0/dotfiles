@@ -102,7 +102,7 @@ return {
             defaults = {
                 file_ignore_patterns = { '.git/' },
                 -- Truncate long paths from the start so filenames stay visible
-                path_display = { 'smart' },
+                path_display = { 'truncate' },
                 mappings = {
                     i = {
                         ['<esc>'] = actions.close,
@@ -127,6 +127,16 @@ return {
                             ['<C-.>'] = relaunch_live_grep_with_hidden,
                         },
                     },
+                },
+                -- LSP pickers: hide inline code snippet in results list
+                lsp_definitions = {
+                    show_line = false,
+                },
+                lsp_type_definitions = {
+                    show_line = false,
+                },
+                lsp_implementations = {
+                    show_line = false,
                 },
                 lsp_references = {
                     show_line = false,
