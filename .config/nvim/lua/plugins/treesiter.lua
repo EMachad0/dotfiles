@@ -41,6 +41,7 @@ return {
                 'typescript',
                 'svelte',
                 'python',
+                'json5',
             }
 
             -- Install core parsers after lazy.nvim finishes loading all plugins
@@ -81,6 +82,9 @@ return {
                 'snacks_notif',
                 'snacks_win',
                 'fidget',
+                'neo-tree',
+                'mason_backdrop',
+                'lazy_backdrop',
             }
 
             -- Auto-install parsers and enable highlighting on FileType
