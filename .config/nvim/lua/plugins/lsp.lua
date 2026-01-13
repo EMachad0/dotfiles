@@ -87,6 +87,7 @@ return {
             'clangd',
             'vtsls',
             'eslint',
+            'jsonls',
         },
         automatic_enable = { false },
     },

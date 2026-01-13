@@ -28,8 +28,8 @@ return {
             typescriptreact = { 'prettierd', 'prettier', 'eslint_d', stop_after_first = true },
 
             -- Other Prettier-supported filetypes
-            json = { 'prettierd', 'prettier', stop_after_first = true },
-            jsonc = { 'prettierd', 'prettier', stop_after_first = true },
+            json = { 'prettierd', 'prettier', 'jq', stop_after_first = true },
+            jsonc = { 'prettierd', 'prettier', 'jq', stop_after_first = true },
             css = { 'prettierd', 'prettier', stop_after_first = true },
             scss = { 'prettierd', 'prettier', stop_after_first = true },
             html = { 'prettierd', 'prettier', stop_after_first = true },
