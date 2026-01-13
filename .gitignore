@@ -1,5 +1,6 @@
 .config/*
 !.config/alacritty
+!.config/aerospace
 !.config/bat
 !.config/karabiner
 !.config/nvim
