@@ -6,15 +6,15 @@
                     {
                         "manipulators": [
                             {
-                                "description": "Change caps_lock to command+control+option.",
+                                "description": "Change caps_lock to command+control+option+shift.",
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [
                                     {
-                                        "key_code": "left_option",
-                                        "modifiers": ["left_command", "left_control"]
+                                        "key_code": "left_shift",
+                                        "modifiers": ["left_command", "left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
@@ -27,7 +27,7 @@
                             {
                                 "from": {
                                     "key_code": "k",
-                                    "modifiers": { "mandatory": ["left_command", "left_control", "left_option"] }
+                                    "modifiers": { "mandatory": ["left_shift", "left_command", "left_control", "left_option"] }
                                 },
                                 "to": [{ "key_code": "up_arrow" }],
                                 "type": "basic"
@@ -35,7 +35,7 @@
                             {
                                 "from": {
                                     "key_code": "h",
-                                    "modifiers": { "mandatory": ["left_command", "left_control", "left_option"] }
+                                    "modifiers": { "mandatory": ["left_shift", "left_command", "left_control", "left_option"] }
                                 },
                                 "to": [{ "key_code": "left_arrow" }],
                                 "type": "basic"
@@ -43,7 +43,7 @@
                             {
                                 "from": {
                                     "key_code": "j",
-                                    "modifiers": { "mandatory": ["left_command", "left_control", "left_option"] }
+                                    "modifiers": { "mandatory": ["left_shift", "left_command", "left_control", "left_option"] }
                                 },
                                 "to": [{ "key_code": "down_arrow" }],
                                 "type": "basic"
@@ -51,7 +51,7 @@
                             {
                                 "from": {
                                     "key_code": "l",
-                                    "modifiers": { "mandatory": ["left_command", "left_control", "left_option"] }
+                                    "modifiers": { "mandatory": ["left_shift", "left_command", "left_control", "left_option"] }
                                 },
                                 "to": [{ "key_code": "right_arrow" }],
                                 "type": "basic"
@@ -59,7 +59,7 @@
                             {
                                 "from": {
                                     "key_code": "semicolon",
-                                    "modifiers": { "mandatory": ["left_command", "left_control", "left_option"] }
+                                    "modifiers": { "mandatory": ["left_shift", "left_command", "left_control", "left_option"] }
                                 },
                                 "to": [
                                     {
