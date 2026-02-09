@@ -44,6 +44,10 @@ set termguicolors
 " unmap f1
 :nmap <F1> <nop>
 
+" title
+set title
+set titlestring=nvim\ %t
+
 " Go to last position when opening file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
