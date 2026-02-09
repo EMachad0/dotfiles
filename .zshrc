@@ -77,7 +77,10 @@ plugins=(
     zsh-syntax-highlighting
 )
 
+# oh-my-zsh
 source $ZSH/oh-my-zsh.sh
+
+ZSH_THEME_TERM_TITLE_IDLE='%~'
 
 # User configuration
 
@@ -87,23 +90,14 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # asdf
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
@@ -126,7 +120,6 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 # nnn
-export EDITOR="$(where nvim)"
 n ()
 {
     # Block nesting of nnn in subshells
@@ -183,6 +176,16 @@ unset __conda_setup
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 # aliases
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
 [ -x "$(command -v bat)" ] && alias cat="bat -pp" || echo "bat not installed"
 [ -x "$(command -v eza)" ] && alias ls="eza --icons" || echo "eza not installed"
 [ -x "$(command -v nvim)" ] && alias vim="nvim" || echo "nvim not installed"
