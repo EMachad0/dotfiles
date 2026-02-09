@@ -169,11 +169,12 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# ghcup
-[ -f "/Users/machado/.ghcup/env" ] && . "/Users/machado/.ghcup/env" # ghcup-env
+# binaries
 
 # add local binaries to path
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+# ghcup
+[ -f "/Users/machado/.ghcup/env" ] && . "/Users/machado/.ghcup/env" # ghcup-env
 
 # aliases
 
