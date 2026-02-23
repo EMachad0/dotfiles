@@ -27,6 +27,32 @@ return {
         '--languageserver',
     },
     filetypes = { 'cs', 'vb' },
+    on_attach = function(_, bufnr)
+        local keymap_options = { buffer = bufnr, silent = true }
+        local function map(mode, lhs, rhs, desc)
+            local lopts = vim.tbl_extend('force', keymap_options, { desc = desc })
+            vim.keymap.set(mode, lhs, rhs, lopts)
+        end
+
+        local telescope_ok = pcall(require, 'telescope.builtin')
+        if not telescope_ok then
+            vim.notify(
+                'omnisharp extended was not initiated because telescope is missing',
+                vim.log.levels.WARN
+            )
+            return
+        end
+
+        -- Override shared LSP navigation only for OmniSharp buffers.
+        map('n', '<leader>ld', function() require('omnisharp_extended').telescope_lsp_definition() end,
+            'Go to Definition')
+        map('n', '<leader>lt', function() require('omnisharp_extended').telescope_lsp_type_definition() end,
+            'Type Definition')
+        map('n', '<leader>li', function() require('omnisharp_extended').telescope_lsp_implementation() end,
+            'Go to Implementation')
+        map('n', '<leader>lr', function() require('omnisharp_extended').telescope_lsp_references() end,
+            'Find References')
+    end,
     root_dir = function(bufnr, on_dir)
         local fname = vim.api.nvim_buf_get_name(bufnr)
         on_dir(
@@ -50,7 +76,7 @@ return {
             EnableEditorConfigSupport = true,
             -- Specifies whether 'using' directives should be grouped and sorted during
             -- document formatting.
-            OrganizeImports = nil,
+            OrganizeImports = true,
         },
         MsBuild = {
             -- If true, MSBuild project system will only load projects for files that
@@ -63,19 +89,19 @@ return {
         },
         RoslynExtensionsOptions = {
             -- Enables support for roslyn analyzers, code fixes and rulesets.
-            EnableAnalyzersSupport = nil,
+            EnableAnalyzersSupport = true,
             -- Enables support for showing unimported types and unimported extension
             -- methods in completion lists. When committed, the appropriate using
             -- directive will be added at the top of the current file. This option can
             -- have a negative impact on initial completion responsiveness,
             -- particularly for the first few completion sessions after opening a
             -- solution.
-            EnableImportCompletion = nil,
+            EnableImportCompletion = true,
             -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
             -- true
             AnalyzeOpenDocumentsOnly = nil,
             -- Enables the possibility to see the code in external nuget dependencies
-            EnableDecompilationSupport = nil,
+            EnableDecompilationSupport = true,
         },
         RenameOptions = {
             RenameInComments = nil,
