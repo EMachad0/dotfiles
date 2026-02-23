@@ -37,6 +37,9 @@ return {
             markdown = { 'prettierd', 'prettier', stop_after_first = true },
             yaml = { 'prettierd', 'prettier', stop_after_first = true },
             graphql = { 'prettierd', 'prettier', stop_after_first = true },
+
+            -- C# formatting via OmniSharp LSP (installed with Mason)
+            cs = { lsp_format = 'prefer' },
         },
         -- Set default options
         default_format_opts = {
