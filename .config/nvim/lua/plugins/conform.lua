@@ -13,6 +13,8 @@ return {
 
             ruby = { 'rubocop' },
 
+            python = { 'ruff_format' },
+
             -- C/C++ family via clang-format
             c = { 'clang-format' },
             cpp = { 'clang-format' },
