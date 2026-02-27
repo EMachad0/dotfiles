@@ -75,7 +75,6 @@ plugins=(
     asdf
     zsh-autosuggestions
     zsh-syntax-highlighting
-    direnv
 )
 
 # oh-my-zsh
