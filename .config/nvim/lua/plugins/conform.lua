@@ -13,7 +13,7 @@ return {
 
             ruby = { 'rubocop' },
 
-            python = { 'ruff_format' },
+            python = { 'ruff_format', lsp_format = 'fallback' },
 
             -- C/C++ family via clang-format
             c = { 'clang-format' },
@@ -32,6 +32,7 @@ return {
             -- Other Prettier-supported filetypes
             json = { 'prettierd', 'prettier', 'jq', stop_after_first = true },
             jsonc = { 'prettierd', 'prettier', 'jq', stop_after_first = true },
+            json5 = { 'prettierd', 'prettier', stop_after_first = true },
             css = { 'prettierd', 'prettier', stop_after_first = true },
             scss = { 'prettierd', 'prettier', stop_after_first = true },
             html = { 'prettierd', 'prettier', stop_after_first = true },
