@@ -1,3 +1,3 @@
 vim.filetype.add({
-    extension = { ua = 'uiua' },
+  extension = { ua = 'uiua' },
 })

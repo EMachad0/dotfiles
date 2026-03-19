@@ -1,6 +1,6 @@
 return {
-    {
-        'Hoffs/omnisharp-extended-lsp.nvim',
-        ft = { 'cs', 'vb' },
-    },
+  {
+    'Hoffs/omnisharp-extended-lsp.nvim',
+    ft = { 'cs', 'vb' },
+  },
 }

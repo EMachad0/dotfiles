@@ -1,6 +1,6 @@
 return {
-    {
-        'Apeiros-46B/uiua.vim',
-        ft = { 'uiua' },
-    },
+  {
+    'Apeiros-46B/uiua.vim',
+    ft = { 'uiua' },
+  },
 }
