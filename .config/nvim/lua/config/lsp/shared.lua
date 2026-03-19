@@ -127,14 +127,12 @@ local function on_attach(_, bufnr)
     end, 'Workspace List Folders')
 
     -- Formatting
-    map({ 'n', 'v' }, '<leader>lf', function()
-        local conform_ok, conform = pcall(require, 'conform')
-        if conform_ok then
-            conform.format({ async = true })
-        else
+    local conform_ok, _ = pcall(require, 'conform')
+    if not conform_ok then
+        map({ 'n', 'v' }, '<leader>lf', function()
             vim.lsp.buf.format({ async = true })
-        end
-    end, 'Format')
+        end, 'Format')
+    end
 end
 
 local function make_capabilities()
