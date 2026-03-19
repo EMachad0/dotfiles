@@ -53,8 +53,8 @@ local function on_attach(_, bufnr)
     local wk_ok, wk = pcall(require, 'which-key')
     if wk_ok then
         wk.add({
-            { '<leader>l',  group = 'Lsp',       mode = { 'n', 'v' } },
-            { '<leader>lw', group = 'Workspace', mode = { 'n' } },
+            { '<leader>l',  group = 'Lsp',       mode = { 'n', 'v' }, buffer = bufnr },
+            { '<leader>lw', group = 'Workspace', mode = { 'n' },      buffer = bufnr },
         })
     end
 
@@ -126,9 +126,14 @@ local function on_attach(_, bufnr)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, 'Workspace List Folders')
 
-    -- Formatting is handled by conform.nvim
+    -- Formatting
     map({ 'n', 'v' }, '<leader>lf', function()
-        require('conform').format({ async = true })
+        local conform_ok, conform = pcall(require, 'conform')
+        if conform_ok then
+            conform.format({ async = true })
+        else
+            vim.lsp.buf.format({ async = true })
+        end
     end, 'Format')
 end
 

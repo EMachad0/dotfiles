@@ -1,19 +1,23 @@
 return {
     'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    lazy = true,
-    keys = {}, -- configuration on shared.lua
+    keys = {
+        {
+            '<leader>lf',
+            function() require('conform').format({ async = true }) end,
+            mode = { 'n', 'v' },
+            desc = 'Format',
+        },
+    },
     opts = {
-        -- Define your formatters
         formatters_by_ft = {
-            lua = { 'stylua', lsp_format = 'fallback' },
+            lua = { 'stylua' },
 
             rust = { 'rustfmt' },
 
             ruby = { 'rubocop' },
 
-            python = { 'ruff_format', lsp_format = 'fallback' },
+            python = { 'ruff_format' },
 
             -- C/C++ family via clang-format
             c = { 'clang-format' },
@@ -44,19 +48,18 @@ return {
             -- C# formatting via OmniSharp LSP (installed with Mason)
             cs = { lsp_format = 'prefer' },
         },
-        -- Set default options
         default_format_opts = {
-            -- Use the lsp formatter for the filetype if no specific formatter is defined
-            -- lsp_format = 'fallback',
+            lsp_format = 'fallback',
         },
-        -- Set up format-on-save
-        -- format_on_save = { timeout_ms = 500 },
-        -- Customize formatters
-        formatters = {
-        },
+        formatters = {},
     },
     init = function()
-        -- on formating with operators, use conform
         vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+        local wk_ok, wk = pcall(require, 'which-key')
+        if wk_ok then
+            wk.add({
+                { '<leader>l', group = 'Formatter', mode = { 'n', 'v' } },
+            })
+        end
     end,
 }
