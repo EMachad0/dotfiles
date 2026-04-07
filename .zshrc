@@ -72,7 +72,6 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    asdf
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -99,8 +98,8 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# asdf
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+# mise
+eval "$(mise activate zsh)"
 
 # fuzzy finder
 source <(fzf --zsh)
