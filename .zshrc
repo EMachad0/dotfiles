@@ -111,10 +111,6 @@ alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {
 bindkey -r '^T'
 bindkey '^F' fzf-file-widget
 
-# zoxide
-eval "$(zoxide init zsh)"
-[ -x "$(command -v zoxide)" ] && alias cd="z" || echo "zoxide not installed"
-
 # starship
 eval "$(starship init zsh)"
 
@@ -167,6 +163,17 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# zoxide
+if [[ $- == *i* ]]; then
+    eval "$(zoxide init zsh)"
+    if (( $+commands[zoxide] )); then
+        alias cd="z"
+    else
+        echo "zoxide not installed"
+    fi
+fi
+
 
 # binaries
 
