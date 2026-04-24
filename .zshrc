@@ -95,9 +95,6 @@ else
   export EDITOR='nvim'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
 # mise
 eval "$(mise activate zsh)"
 
@@ -113,56 +110,6 @@ bindkey '^F' fzf-file-widget
 
 # starship
 eval "$(starship init zsh)"
-
-# nnn
-n ()
-{
-    # Block nesting of nnn in subshells
-    if [[ "${NNNLVL:-0}" -ge 1 ]]; then
-        echo "nnn is already running"
-        return
-    fi
-
-    # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
-    # If NNN_TMPFILE is set to a custom path, it must be exported for nnn to
-    # see. To cd on quit only on ^G, remove the "export" and make sure not to
-    # use a custom path, i.e. set NNN_TMPFILE *exactly* as follows:
-    #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-    # stty lnext undef
-
-    # The backslash allows one to alias n to nnn if desired without making an
-    # infinitely recursive alias
-    \nnn -e "$@"
-
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
-}
-
-# conda
-export CONDA_AUTO_ACTIVATE_BASE=false # Dont activate an enviroment when starting a new terminal
-export CONDA_CHANGE_PS1=false # Dont show the current enviroment this is done by starship
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/machado/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/machado/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/machado/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/machado/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 # zoxide
 if [[ $- == *i* ]]; then
