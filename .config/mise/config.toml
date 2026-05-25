@@ -1,0 +1,6 @@
+[settings]
+trusted_config_paths = ["/Users/eliton.silva/home/ume", "/Users/eliton.silva/home/github"]
+lockfile = true
+
+[tools]
+node = "24"
