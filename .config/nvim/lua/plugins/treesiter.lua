@@ -42,6 +42,11 @@ return {
         'svelte',
         'python',
         'json5',
+        'markdown',
+        'markdown_inline',
+        -- Injected languages never fire a FileType event, so the auto-install
+        -- below never sees them. ```mermaid fences need the parser up front.
+        'mermaid',
       }
 
       -- Install core parsers after lazy.nvim finishes loading all plugins
