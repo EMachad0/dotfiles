@@ -76,6 +76,9 @@ plugins=(
     zsh-syntax-highlighting
 )
 
+# Local completion overrides (e.g. fixed _eza); must come before compinit runs in oh-my-zsh
+fpath=(~/.zsh/completions $fpath)
+
 # oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
