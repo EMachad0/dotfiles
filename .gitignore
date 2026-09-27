@@ -10,3 +10,6 @@
 !.config/zellij
 !.config/starship.toml
 
+
+# karabiner auto-generated backups
+.config/karabiner/automatic_backups/
