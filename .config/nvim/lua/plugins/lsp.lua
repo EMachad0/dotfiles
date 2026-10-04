@@ -31,6 +31,9 @@ return {
     config = function()
       local shared = require('config.lsp.shared')
 
+      -- Write files touched by multi-file renames/code actions (see module)
+      require('config.refactor_autosave').setup()
+
       local base_dir = vim.fn.stdpath('config') .. '/lua/config/lsp'
       local files = vim.fn.globpath(base_dir, '*.lua', false, true)
 
