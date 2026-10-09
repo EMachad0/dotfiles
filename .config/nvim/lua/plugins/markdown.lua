@@ -52,4 +52,33 @@ return {
       end
     end,
   },
+  -- In-buffer rendering (headings, code blocks, tables, callouts...).
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    ft = { 'markdown' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    keys = {
+      {
+        '<leader>mr',
+        '<cmd>RenderMarkdown buf_toggle<cr>',
+        ft = 'markdown',
+        desc = 'Render (in buffer) toggle',
+      },
+    },
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      -- Checkbox/callout completions via an in-process LSP client, picked up
+      -- by nvim-cmp through the existing 'nvim_lsp' source.
+      completions = { lsp = { enabled = true } },
+      -- Keep the cursor line rendered while navigating instead of flipping it
+      -- to raw text (flickers on every j/k). Insert mode still shows raw text.
+      anti_conceal = { enabled = false },
+      win_options = {
+        -- '' (default) reveals concealed markup (**, `, link urls) on the
+        -- cursor line in all modes; keep it hidden in normal/command mode.
+        concealcursor = { rendered = 'nc' },
+      },
+    },
+  },
 }
