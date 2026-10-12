@@ -103,6 +103,8 @@ return {
         file_ignore_patterns = { '.git/' },
         -- Truncate long paths from the start so filenames stay visible
         path_display = { 'truncate' },
+        -- Preview title shows the file path
+        dynamic_preview_title = true,
         mappings = {
           i = {
             ['<esc>'] = actions.close,
@@ -140,6 +142,11 @@ return {
         },
         lsp_references = {
           show_line = false,
+        },
+        -- Symbol first; the path moves to the preview title (dynamic_preview_title)
+        lsp_dynamic_workspace_symbols = {
+          path_display = { 'hidden' },
+          symbol_width = 40,
         },
       },
     })
