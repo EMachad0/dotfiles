@@ -113,10 +113,9 @@ local function on_attach(_, bufnr)
   -- Symbols (Telescope if available)
   if telescope_ok then
     map('n', '<leader>ls', tbuiltin.lsp_document_symbols, 'Document Symbols')
-    map('n', '<leader>lS', tbuiltin.lsp_dynamic_workspace_symbols, 'Workspace Symbols')
+    map('n', '<leader>fS', tbuiltin.lsp_dynamic_workspace_symbols, 'Find Symbol')
   else
     map('n', '<leader>ls', vim.lsp.buf.document_symbol, 'LSP: Document Symbols')
-    map('n', '<leader>lS', vim.lsp.buf.workspace_symbol, 'LSP: Workspace Symbols')
   end
 
   -- Workspace folders
